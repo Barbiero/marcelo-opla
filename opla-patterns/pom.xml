@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>opla</groupId>
+	<groupId>br.ufpr.dinf.gres</groupId>
 	<version>0.0.1</version>
 	<artifactId>opla-patterns</artifactId>
 	<name>opla-patterns</name>
@@ -13,7 +13,7 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>opla</groupId>
+			<groupId>br.ufpr.dinf.gres</groupId>
 			<artifactId>architecture-representation</artifactId>
 			<version>0.0.1</version>
 		</dependency>
