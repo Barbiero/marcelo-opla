@@ -138,7 +138,7 @@ public class PLAFeatureMutation extends Mutation {
 
     }
 
-    private void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws JMException, Exception {
+    private void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws Exception {
         List<Attribute> attributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes());
         if (attributesClass.size() >= 1) {
             if (sourceClass.moveAttributeToClass(randomObject(attributesClass), targetClass)) {

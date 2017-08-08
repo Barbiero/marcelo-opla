@@ -57,7 +57,7 @@ public class Experiment {
      * @throws SQLException
      * @throws Exception
      */
-    public static List<Experiment> all() throws SQLException, Exception {
+    public static List<Experiment> all() throws Exception {
         String attrs[] = {"id", "name", "algorithm", "created_at", "description"};
         List<Experiment> experiements = new ArrayList<Experiment>();
         ResultSet r = null;

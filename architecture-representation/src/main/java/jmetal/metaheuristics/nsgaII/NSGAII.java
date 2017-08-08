@@ -149,7 +149,7 @@ public class NSGAII extends Algorithm {
                 } // for
 
                 // Create the solutionSet union of solutionSet and offSpring
-                union = ((SolutionSet) initialPopulation).union(offspringPopulation);
+                union = initialPopulation.union(offspringPopulation);
 
                 // Ranking the union
                 Ranking ranking = new Ranking(union);

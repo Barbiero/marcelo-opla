@@ -29,7 +29,7 @@ public class NSGAII_OPLA_PLAThenDPM {
     public static double crossoverProbability_;
 
     //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
 
 //        args = new String[]{"100", "1000", "0.9", ArchitectureRepository.AGM, "Teste", "false"};
         if (args.length < 6) {

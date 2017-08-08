@@ -9,7 +9,7 @@ import java.io.IOException;
 public class QuantidadeSolucoesIguais4Objetives {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
         String[] abordagens = {
                 "MECBA",
 //            "MECBA-Clu",

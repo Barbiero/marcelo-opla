@@ -59,7 +59,7 @@ public class ModelHelper extends ElementHelper {
         classes.addAll(getClasses(model));
 
         for (int i = 0; i < pacotes.size(); i++)
-            classes.addAll(getAllClassesOfPackage((Package) pacotes.get(i)));
+            classes.addAll(getAllClassesOfPackage(pacotes.get(i)));
 
         if (classes.isEmpty()) return Collections.emptyList();
 
@@ -231,9 +231,8 @@ public class ModelHelper extends ElementHelper {
 
     private boolean modelExists(String xmiFile) {
         File model = new File(xmiFile);
-        if (model.exists()) return true;
+        return model.exists();
 
-        return false;
     }
 
     public List<Operation> getAllMethods(NamedElement model) {

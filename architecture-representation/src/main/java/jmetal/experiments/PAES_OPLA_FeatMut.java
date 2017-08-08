@@ -24,7 +24,7 @@ public class PAES_OPLA_FeatMut {
     public static double crossoverProbability_;
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException,
+    public static void main(String[] args) throws IOException, JMException,
             ClassNotFoundException {
 
         int runsNumber = 30; // 30;

@@ -16,7 +16,7 @@ public enum Metrics {
 
     private String name;
 
-    private Metrics(String name) {
+    Metrics(String name) {
         this.name = name;
     }
 

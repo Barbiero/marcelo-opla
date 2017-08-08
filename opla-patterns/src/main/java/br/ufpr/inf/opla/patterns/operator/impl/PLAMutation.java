@@ -140,7 +140,7 @@ public class PLAMutation extends AbstractMutationOperator {
         return false;
     }
 
-    private void moveAttribute(Architecture arch, arquitetura.representation.Class targetClass, arquitetura.representation.Class sourceClass) throws JMException, Exception {
+    private void moveAttribute(Architecture arch, arquitetura.representation.Class targetClass, arquitetura.representation.Class sourceClass) throws Exception {
         List<Attribute> attributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes());
         if (attributesClass.size() >= 1) {
             if (sourceClass.moveAttributeToClass(randomObject(attributesClass), targetClass)) {

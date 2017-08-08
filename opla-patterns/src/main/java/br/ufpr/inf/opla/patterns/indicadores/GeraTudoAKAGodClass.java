@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class GeraTudoAKAGodClass {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException, InterruptedException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException, InterruptedException {
         String[] plas = {
                 //            "MicrowaveOvenSoftware",
                 //            "ServiceAndSupportSystem",

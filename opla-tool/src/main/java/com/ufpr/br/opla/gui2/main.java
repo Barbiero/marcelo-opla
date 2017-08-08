@@ -2548,7 +2548,7 @@ public class main extends javax.swing.JFrame {
         Iterator<Entry<String, String>> it = r.entrySet().iterator();
         while (it.hasNext()) {
             Object[] row = new Object[2];
-            Map.Entry pairs = (Map.Entry<String, String>) it.next();
+            Map.Entry pairs = it.next();
             row[0] = pairs.getKey();
             row[1] = pairs.getValue();
             it.remove(); // evitar ConcurrentModificationException
@@ -2776,10 +2776,10 @@ public class main extends javax.swing.JFrame {
 
         for (Component comp : panelFunctionExecutionsSelecteds.getComponents()) {
             if (comp instanceof JCheckBox) {
-                panelFunctionExecutionsSelecteds.remove((JCheckBox) comp);
+                panelFunctionExecutionsSelecteds.remove(comp);
             }
             if (comp instanceof JLabel) {
-                panelFunctionExecutionsSelecteds.remove((JLabel) comp);
+                panelFunctionExecutionsSelecteds.remove(comp);
             }
 
 

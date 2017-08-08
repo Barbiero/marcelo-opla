@@ -118,7 +118,7 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasSmartyProfile() {
-        return getPathToProfileSMarty().isEmpty() || getPathToProfileSMarty() == null ? false : true;
+        return !getPathToProfileSMarty().isEmpty() && getPathToProfileSMarty() != null;
     }
 
     /**
@@ -127,7 +127,7 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasConcernsProfile() {
-        return getPathToProfileConcerns().isEmpty() || getPathToProfileConcerns() == null ? false : true;
+        return !getPathToProfileConcerns().isEmpty() && getPathToProfileConcerns() != null;
     }
 
     /**
@@ -136,11 +136,11 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasRelationsShipProfile() {
-        return getPathToProfileRelationships().isEmpty() || getPathToProfileRelationships() == null ? false : true;
+        return !getPathToProfileRelationships().isEmpty() && getPathToProfileRelationships() != null;
     }
 
     public static boolean hasPatternsProfile() {
-        return getPathToProfilePatterns().isEmpty() || getPathToProfilePatterns() == null ? false : true;
+        return !getPathToProfilePatterns().isEmpty() && getPathToProfilePatterns() != null;
     }
 
     public static String getPathToProfileRelationships() {

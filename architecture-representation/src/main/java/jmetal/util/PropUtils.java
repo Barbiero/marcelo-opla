@@ -177,7 +177,7 @@ public abstract class PropUtils extends Object {
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      */
-    static public Properties load(String file) throws FileNotFoundException, IOException {
+    static public Properties load(String file) throws IOException {
         Properties properties = new Properties();
         FileInputStream in = new FileInputStream(file);
         properties.load(in);

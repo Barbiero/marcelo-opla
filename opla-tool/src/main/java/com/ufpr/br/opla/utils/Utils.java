@@ -82,11 +82,8 @@ public class Utils {
     }
 
     public static boolean selectedSolutionIsNonDominated(String fileName) {
-        if (fileName.startsWith("VAR_All")) {
-            return true;
-        }
+        return fileName.startsWith("VAR_All");
 
-        return false;
     }
 
     public static List<Entry<String, Double>> shortMap(SortedMap<String, Double> resultsEds) {

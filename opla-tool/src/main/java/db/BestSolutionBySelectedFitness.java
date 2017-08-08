@@ -66,7 +66,7 @@ public class BestSolutionBySelectedFitness {
         Iterator<Entry<String, String>> it = result.entrySet().iterator();
         while (it.hasNext()) {
             Object[] row = new Object[2];
-            Map.Entry<String, String> pairs = (Map.Entry<String, String>) it.next();
+            Map.Entry<String, String> pairs = it.next();
             row[1] = pairs.getValue();
             row[0] = pairs.getKey();
             it.remove(); // evitar ConcurrentModificationException

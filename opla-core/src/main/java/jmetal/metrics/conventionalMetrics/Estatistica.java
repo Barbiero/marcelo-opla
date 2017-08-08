@@ -149,7 +149,7 @@ public class Estatistica {
         Integer numAtual, numMaior = 0;
 
         for (int count = 0; count < array.length; count++) {
-            i = (Integer) map.get(new Double(array[count]));
+            i = map.get(new Double(array[count]));
             if (i == null) {
                 map.put(new Double(array[count]), new Integer(1));
             } else {

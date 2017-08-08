@@ -57,7 +57,7 @@ public class PAES_OPLA_FeatMut {
         return pla.substring(beginIndex, endIndex);
     }
 
-    public void execute() throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public void execute() throws IOException, JMException, ClassNotFoundException {
 
         intializeDependencies();
 

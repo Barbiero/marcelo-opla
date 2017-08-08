@@ -12,7 +12,7 @@ public enum FeatureMutationOperators {
 
     private String name;
 
-    private FeatureMutationOperators(String name) {
+    FeatureMutationOperators(String name) {
         this.name = name;
     }
 

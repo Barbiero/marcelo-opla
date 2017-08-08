@@ -102,7 +102,7 @@ public class VariabilityFlyweight {
     }
 
     private boolean allowAddingVar(Map<String, String> a) {
-        return "true".equalsIgnoreCase(a.get("allowAddingVar")) ? true : false;
+        return "true".equalsIgnoreCase(a.get("allowAddingVar"));
     }
 
     /**

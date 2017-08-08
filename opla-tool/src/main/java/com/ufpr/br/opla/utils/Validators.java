@@ -50,11 +50,7 @@ public class Validators {
             JOptionPane.showMessageDialog(null, "The following architectures are not valid or not are found\n " + invalidsEntries.toString() + "\n\n Check it please");
         }
 
-        if (invalidsEntries.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !invalidsEntries.isEmpty();
     }
 
     public static boolean validateCheckedsFunctions(List<JCheckBox> checkeds) {

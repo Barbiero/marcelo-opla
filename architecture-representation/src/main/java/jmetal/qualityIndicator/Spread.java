@@ -63,8 +63,8 @@ public class Spread {
         Spread qualityIndicator = new Spread();
 
         // STEP 2. Read the fronts from the files
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
+        double[][] solutionFront = utils_.readFront(args[0]);
+        double[][] trueFront = utils_.readFront(args[1]);
 
         // STEP 3. Obtain the metric value
         double value = qualityIndicator.spread(solutionFront, trueFront, 2);

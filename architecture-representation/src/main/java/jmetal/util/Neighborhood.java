@@ -119,8 +119,6 @@ public class Neighborhood {
         }
     } // Neighborhood
 
-    ;
-
     /**
      * Returns a <code>SolutionSet</code> with the North, Sout, East and West
      * neighbors solutions of ratio 0 of a given location into a given

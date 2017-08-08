@@ -64,8 +64,8 @@ public class GeneralizedSpread {
         //Create a new instance of the metric
         GeneralizedSpread qualityIndicator = new GeneralizedSpread();
         //Read the front from the files
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
+        double[][] solutionFront = utils_.readFront(args[0]);
+        double[][] trueFront = utils_.readFront(args[1]);
 
         //Obtain delta value
         double value = qualityIndicator.generalizedSpread(solutionFront,
