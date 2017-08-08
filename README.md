@@ -1,9 +1,8 @@
-# OPLA-Tool
+# OPLA-Tool - NSGA-III Fork
 
 ## Description
-Desenvolvimento da OPLA-Memetic.
+Desenvolvimento do NSGA-III para a OPLA-Tool
 
-You need download all projects before to build the OPLA-Memetic.
 
 ## Requirements
 Before to compile the code, you need to install the following softwares on your PC:
