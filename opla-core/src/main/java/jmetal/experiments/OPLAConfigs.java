@@ -7,15 +7,15 @@ public class OPLAConfigs {
     private List<String> selectedObjectiveFunctions;
 
     public Integer getNumberOfObjectives() {
-	return selectedObjectiveFunctions.size();
+        return selectedObjectiveFunctions.size();
     }
 
     public List<String> getSelectedObjectiveFunctions() {
-	return selectedObjectiveFunctions;
+        return selectedObjectiveFunctions;
     }
 
     public void setSelectedObjectiveFunctions(List<String> selectedMetrics) {
-	this.selectedObjectiveFunctions = selectedMetrics;
+        this.selectedObjectiveFunctions = selectedMetrics;
     }
 
 }

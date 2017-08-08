@@ -1,19 +1,17 @@
 package jmetal.experiments;
 
+import br.ufpr.inf.opla.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
+import logs.log_log.LogLog;
+import org.apache.commons.lang.WordUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import logs.log_log.LogLog;
-
-import org.apache.commons.lang.WordUtils;
-
-import br.ufpr.inf.opla.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
-
 public abstract class ExperimentCommomConfigs {
 
-    
+
     private boolean log = false;
     private LogLog logger; //Precisa para captar os logs na GUI.
     private String pathToDb;
@@ -30,153 +28,153 @@ public abstract class ExperimentCommomConfigs {
     private ElementsWithSameDesignPatternSelection applyStrategy;
 
     public void activeLogs() {
-	log = true;
+        log = true;
+    }
+
+    public String getPlas() {
+        return this.plas;
     }
 
     /**
      * PLAs - Path to PLAs separated by comma.
-     * 
+     *
      * @param plas
      */
     public void setPlas(String plas) {
-	this.plas = plas;
-    }
-
-    public String getPlas() {
-	return this.plas;
+        this.plas = plas;
     }
 
     public int getNumberOfRuns() {
-	return numberOfRuns;
+        return numberOfRuns;
     }
 
     public void setNumberOfRuns(int numberOfRuns) {
-	validateGreaterOrEqualOne("numberOfRuns", numberOfRuns);
-	this.numberOfRuns = numberOfRuns;
+        validateGreaterOrEqualOne("numberOfRuns", numberOfRuns);
+        this.numberOfRuns = numberOfRuns;
     }
 
     public int getMaxEvaluation() {
-	return maxEvaluations;
+        return maxEvaluations;
     }
 
     public void setMaxEvaluations(int maxEvaluations) {
-	validateGreaterOrEqualOne("maxEvaluation", maxEvaluations);
-	this.maxEvaluations = maxEvaluations;
-    }
-
-    public void setCrossoverProbability(double crossoverProbability) {
-	validateArgument("crossoverProbability", crossoverProbability);
-	this.crossoverProbability = crossoverProbability;
+        validateGreaterOrEqualOne("maxEvaluation", maxEvaluations);
+        this.maxEvaluations = maxEvaluations;
     }
 
     protected void validateArgument(String arg, double probability) {
-	if (probability < 0 || probability > 1)
-	    throw new IllegalArgumentException(arg + " must be a value between 0 and 1");
+        if (probability < 0 || probability > 1)
+            throw new IllegalArgumentException(arg + " must be a value between 0 and 1");
     }
 
     public double getCrossoverProbability() {
-	return this.crossoverProbability;
+        return this.crossoverProbability;
+    }
+
+    public void setCrossoverProbability(double crossoverProbability) {
+        validateArgument("crossoverProbability", crossoverProbability);
+        this.crossoverProbability = crossoverProbability;
     }
 
     public double getMutationProbability() {
-	return mutationProbability;
+        return mutationProbability;
     }
 
     public void setMutationProbability(double mutationProbability) {
-	validateArgument("mutationProbability", mutationProbability);
-	this.mutationProbability = mutationProbability;
+        validateArgument("mutationProbability", mutationProbability);
+        this.mutationProbability = mutationProbability;
     }
 
     public void disableCrossover() {
-	this.crossoverProbability = 0;
+        this.crossoverProbability = 0;
     }
 
     public void disableMutation() {
-	this.mutationProbability = 0;
+        this.mutationProbability = 0;
     }
 
     public List<String> getMutationOperators() {
-	return mutationOperators;
+        return mutationOperators;
     }
 
     public void setMutationOperators(List<String> mutationOperators) {
-	this.mutationOperators = mutationOperators;
+        this.mutationOperators = mutationOperators;
     }
 
     public OPLAConfigs getOplaConfigs() {
-	return oplaConfigs;
+        return oplaConfigs;
     }
 
     public void setOplaConfigs(OPLAConfigs oplaConfigs) {
-	this.oplaConfigs = oplaConfigs;
+        this.oplaConfigs = oplaConfigs;
     }
-    
+
     /**
      * Get Design Patterns to apply. If none is set return all.
-     * 
+     *
      * @return String[]
      */
     public String[] getPatterns() {
-	if (patterns == null)
-	    return new String[] {"Strategy", "Bridge", "Mediator"};
+        if (patterns == null)
+            return new String[]{"Strategy", "Bridge", "Mediator"};
         return patterns;
     }
-    
+
     /**
      * Set patterns to use.
-     * 
+     * <p>
      * This method will normalize patternsList to downcase and capitalized.
-     * 
+     *
      * @param patternsList
      */
-    public void setPatterns(String ... patternsList) {    
-	for (int i = 0; i < patternsList.length; i++)
-	    patternsList[i] = WordUtils.capitalize(patternsList[i].toLowerCase());
+    public void setPatterns(String... patternsList) {
+        for (int i = 0; i < patternsList.length; i++)
+            patternsList[i] = WordUtils.capitalize(patternsList[i].toLowerCase());
         this.patterns = patternsList;
-        
-	if(Collections.disjoint(Arrays.asList(this.patterns), Arrays.asList("Strategy", "Bridge", "Mediator"))){
-	    throw new IllegalArgumentException("Invalid(s) Design Pattern(s). Valids are: Stragety, Bridge and Mediator");
-	}
+
+        if (Collections.disjoint(Arrays.asList(this.patterns), Arrays.asList("Strategy", "Bridge", "Mediator"))) {
+            throw new IllegalArgumentException("Invalid(s) Design Pattern(s). Valids are: Stragety, Bridge and Mediator");
+        }
     }
-    
+
+    public ElementsWithSameDesignPatternSelection getDesignPatternStrategy() {
+        return applyStrategy;
+    }
+
     /**
      * Set the strategy to apply Design Patterns. Two possibilities:<br/>
      * ElementsWithSameDesignPatternSelection or null for Random
-     * @param elementsWithSameDesignPatternSelection 
-     * 
+     *
+     * @param elementsWithSameDesignPatternSelection
      */
-    public void setDesignPatternStrategy(ElementsWithSameDesignPatternSelection elementsWithSameDesignPatternSelection){
-	this.applyStrategy = elementsWithSameDesignPatternSelection;
-    }
-    
-    public ElementsWithSameDesignPatternSelection getDesignPatternStrategy(){
-	return applyStrategy;
+    public void setDesignPatternStrategy(ElementsWithSameDesignPatternSelection elementsWithSameDesignPatternSelection) {
+        this.applyStrategy = elementsWithSameDesignPatternSelection;
     }
 
     /**
      * If true execute log method NSGAII_OPLA_FeatMut.logInforamtions() or  PAES_OPLA_FeatMut.logInforamtions();
-     * 
+     *
      * @return
      */
     public boolean isLog() {
-	return log && logger != null;
+        return log && logger != null;
     }
 
     public String getPathToDb() {
-	return pathToDb;
+        return pathToDb;
     }
 
     public void setPathToDb(String pathToDb) {
-	this.pathToDb = pathToDb;
+        this.pathToDb = pathToDb;
     }
-    
+
     public void excludeDesignPatternsFromMutationOperatorList() {
-	this.getMutationOperators().remove("DesignPatterns");
+        this.getMutationOperators().remove("DesignPatterns");
     }
-    
+
     protected void validateGreaterOrEqualOne(String arg, int numberOfRuns) {
-	if (numberOfRuns < 1)
-	    throw new IllegalArgumentException(arg + " must be greater or equal 1");
+        if (numberOfRuns < 1)
+            throw new IllegalArgumentException(arg + " must be greater or equal 1");
     }
 
     public LogLog getLogger() {
@@ -185,7 +183,7 @@ public abstract class ExperimentCommomConfigs {
 
     /**
      * Seta uma instância de {@link LogLog}.
-     * 
+     *
      * @param logLog
      */
     public void setLogger(LogLog logLog) {
@@ -199,7 +197,6 @@ public abstract class ExperimentCommomConfigs {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
-    
+
+
 }

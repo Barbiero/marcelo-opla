@@ -5,26 +5,26 @@
 package com.ufpr.br.opla.logs;
 
 import com.ufpr.br.opla.utils.Time;
-import javax.swing.JTextArea;
 import logs.log_log.Listener;
 import logs.log_log.LogLogData;
 
+import javax.swing.*;
+
 /**
- *
  * @author elf
  */
-public class LogListener implements Listener{
-  
-  private JTextArea textArea;
+public class LogListener implements Listener {
 
-  public LogListener(JTextArea logs) {
-    this.textArea = logs;
-  }
+    private JTextArea textArea;
 
-  @Override
-  public void message() {
-    
-    this.textArea.append(Time.timeNow() + LogLogData.printLog()+"\n");
-  }
-  
+    public LogListener(JTextArea logs) {
+        this.textArea = logs;
+    }
+
+    @Override
+    public void message() {
+
+        this.textArea.append(Time.timeNow() + LogLogData.printLog() + "\n");
+    }
+
 }

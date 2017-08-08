@@ -1,60 +1,50 @@
 package jmetal.operators.crossover;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import arquitetura.exceptions.NotFoundException;
 import arquitetura.exceptions.PackageNotFound;
-import arquitetura.representation.Architecture;
-import arquitetura.representation.Attribute;
+import arquitetura.representation.*;
 import arquitetura.representation.Class;
-import arquitetura.representation.Concern;
-import arquitetura.representation.Element;
-import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.Relationship;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.*;
 
 public class CrossoverOperations {
 
-	
-	private static Logger LOGGER = LogManager.getLogger(CrossoverOperations.class.getName());
-	
-	public static void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring) {
 
-		Class targetClass = offspring.findClassByName(classComp.getName()).get(0);
-		List<Attribute> allAttributes = new ArrayList<Attribute>(classComp.getAllAttributes());
-		if (!allAttributes.isEmpty()) {
-			Iterator<Attribute> iteratorAttributes = allAttributes.iterator();
-			try{
-				while (iteratorAttributes.hasNext()) {
-					Attribute attribute = iteratorAttributes.next();
-					if (attribute.containsConcern(feature) && attribute.getOwnConcerns().size() == 1) {
-						if (targetClass == null) {
-							Package newComp = null;
-							newComp = offspring.findPackageByName(comp.getName());
-							if(newComp == null)
-								newComp = offspring.createPackage(comp.getName());
-							targetClass = newComp.createClass(classComp.getName(), false);
-							targetClass.addConcern(feature.getName());
-						}
-						classComp.moveAttributeToClass(attribute, targetClass);
-					}
-				}
-			}catch(Exception e ){
-				System.err.println(e);
-			}
-		}
-	}
-	
+    private static Logger LOGGER = LogManager.getLogger(CrossoverOperations.class.getName());
+
+    public static void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring) {
+
+        Class targetClass = offspring.findClassByName(classComp.getName()).get(0);
+        List<Attribute> allAttributes = new ArrayList<Attribute>(classComp.getAllAttributes());
+        if (!allAttributes.isEmpty()) {
+            Iterator<Attribute> iteratorAttributes = allAttributes.iterator();
+            try {
+                while (iteratorAttributes.hasNext()) {
+                    Attribute attribute = iteratorAttributes.next();
+                    if (attribute.containsConcern(feature) && attribute.getOwnConcerns().size() == 1) {
+                        if (targetClass == null) {
+                            Package newComp = null;
+                            newComp = offspring.findPackageByName(comp.getName());
+                            if (newComp == null)
+                                newComp = offspring.createPackage(comp.getName());
+                            targetClass = newComp.createClass(classComp.getName(), false);
+                            targetClass.addConcern(feature.getName());
+                        }
+                        classComp.moveAttributeToClass(attribute, targetClass);
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
+    }
+
 //	public static void updateClassRelationships(Element classComp, Architecture offspring ) {
 //		Collection<Relationship> parentRelationships = ((Class) classComp).getRelationships();
 //		for (Relationship relationship : parentRelationships){
@@ -173,110 +163,110 @@ public class CrossoverOperations {
 //			}
 //		}
 //	}
-	
-    public static void moveHierarchyToSameComponent(Class classComp, Package targetComp, Package sourceComp, Architecture offspring, Architecture parent, Concern concern){
-    	Class root = classComp;
-		while (isChild(root)){
-			root = getParent(root);		
-		} 
-		if (sourceComp.getAllClasses().contains(root)){
-			moveChildrenAndRelationshipsToSameComponent(root, sourceComp, targetComp, offspring, parent);
-		} 				
-	}
-    
-    private static void moveChildrenAndRelationshipsToSameComponent(Element parent, Package sourceComp, Package targetComp, Architecture offspring, Architecture parentArch){
-	  	
-		Collection<Element> children = getChildren(parent);
-		//move a super classe
-		if (sourceComp.getAllClasses().contains(parent)){
-			addClassToOffspring(parent, targetComp, offspring);
-			//sourceComp.moveClassToComponent(parent, targetComp);
-			//this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);
-		} else{
-			System.out.println("Nao encontrou a superclasse");
-		}
-		
-		//move cada subclasse
-		for (Element child: children){
-			moveChildrenAndRelationshipsToSameComponent(child, sourceComp, targetComp, offspring, parentArch);			
-		}	
-	}
-    
-    public static  boolean isChild(Class cls){
-    	boolean child=false;
-    	
-    	for (Relationship relationship: cls.getRelationships()){
-  	    	if (relationship instanceof GeneralizationRelationship){
-  	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-  	    		if (generalization.getChild().equals(cls)) {
-  	    			child = true;
-  	    			return child;
-  	    		}
-  	    	}
-  	    }
-    	return child;
+
+    public static void moveHierarchyToSameComponent(Class classComp, Package targetComp, Package sourceComp, Architecture offspring, Architecture parent, Concern concern) {
+        Class root = classComp;
+        while (isChild(root)) {
+            root = getParent(root);
+        }
+        if (sourceComp.getAllClasses().contains(root)) {
+            moveChildrenAndRelationshipsToSameComponent(root, sourceComp, targetComp, offspring, parent);
+        }
     }
-    
-	public static Class getParent(Class cls){
-	  Class parent = null;
-	  for (Relationship relationship: cls.getRelationships()){
-	    	if (relationship instanceof GeneralizationRelationship){
-	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-	    		if (generalization.getChild().equals(cls)){
-	    			parent = (Class) generalization.getParent();
-	    			return parent;
-	    		}
-	    	}
-	  }	    			
-	  return parent;
-	}
-	
-	public static void addClassToOffspring(Element klass, Package targetComp, Architecture offspring){
-		targetComp.addExternalClass((Class) klass);
-	}
-	
-	/*
-	 * método para identificar as subclasses da classe pai na hierarquia de herança
-	 * 
-	 */
-    public static Set<Element> getChildren(Element cls){
-  	  GeneralizationRelationship g = getGeneralizationForClass(cls);
-  	  if(g != null)
-  		  return g.getAllChildrenForGeneralClass();
-  	  return Collections.emptySet();
+
+    private static void moveChildrenAndRelationshipsToSameComponent(Element parent, Package sourceComp, Package targetComp, Architecture offspring, Architecture parentArch) {
+
+        Collection<Element> children = getChildren(parent);
+        //move a super classe
+        if (sourceComp.getAllClasses().contains(parent)) {
+            addClassToOffspring(parent, targetComp, offspring);
+            //sourceComp.moveClassToComponent(parent, targetComp);
+            //this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);
+        } else {
+            System.out.println("Nao encontrou a superclasse");
+        }
+
+        //move cada subclasse
+        for (Element child : children) {
+            moveChildrenAndRelationshipsToSameComponent(child, sourceComp, targetComp, offspring, parentArch);
+        }
     }
-    
-    
-	public static void addInterfacesToOffspring(Concern feature, Package comp, Package newComp, Architecture offspring, Architecture parent) throws PackageNotFound, NotFoundException {
-		List<Interface> allInterfaces = new ArrayList<Interface>(comp.getImplementedInterfaces());
-		
-		if(!allInterfaces.isEmpty()){
-			Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
-			while (iteratorInterfaces.hasNext()) {
-				Interface interfaceComp = iteratorInterfaces.next();
-				interfaceComp.removeInterfaceFromRequiredOrImplemented();
-				offspring.addExternalInterface(interfaceComp);
-				offspring.addImplementedInterface(interfaceComp, newComp);
-				
-				Collection<DependencyRelationship> dependencies = interfaceComp.getDependencies();
-				for (DependencyRelationship dependency : dependencies) {
-					Package dependent = offspring.findPackageByName(dependency.getPackageOfDependency().getName());
-					dependency.setClient(dependent);
-					offspring.addRelationship(dependency);
-				}
-			}
-		}
-	}
-    
-	private static GeneralizationRelationship getGeneralizationForClass(Element cls) {
-		for (Relationship relationship: ((Class) cls).getRelationships()){
-			if (relationship instanceof GeneralizationRelationship){
-				GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-	    		if (generalization.getParent().equals(cls))
-	    			return (GeneralizationRelationship) relationship;
-	  	  	}
-		}
-		
-	  return null;
-	}
+
+    public static boolean isChild(Class cls) {
+        boolean child = false;
+
+        for (Relationship relationship : cls.getRelationships()) {
+            if (relationship instanceof GeneralizationRelationship) {
+                GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+                if (generalization.getChild().equals(cls)) {
+                    child = true;
+                    return child;
+                }
+            }
+        }
+        return child;
+    }
+
+    public static Class getParent(Class cls) {
+        Class parent = null;
+        for (Relationship relationship : cls.getRelationships()) {
+            if (relationship instanceof GeneralizationRelationship) {
+                GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+                if (generalization.getChild().equals(cls)) {
+                    parent = (Class) generalization.getParent();
+                    return parent;
+                }
+            }
+        }
+        return parent;
+    }
+
+    public static void addClassToOffspring(Element klass, Package targetComp, Architecture offspring) {
+        targetComp.addExternalClass((Class) klass);
+    }
+
+    /*
+     * método para identificar as subclasses da classe pai na hierarquia de herança
+     *
+     */
+    public static Set<Element> getChildren(Element cls) {
+        GeneralizationRelationship g = getGeneralizationForClass(cls);
+        if (g != null)
+            return g.getAllChildrenForGeneralClass();
+        return Collections.emptySet();
+    }
+
+
+    public static void addInterfacesToOffspring(Concern feature, Package comp, Package newComp, Architecture offspring, Architecture parent) throws PackageNotFound, NotFoundException {
+        List<Interface> allInterfaces = new ArrayList<Interface>(comp.getImplementedInterfaces());
+
+        if (!allInterfaces.isEmpty()) {
+            Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
+            while (iteratorInterfaces.hasNext()) {
+                Interface interfaceComp = iteratorInterfaces.next();
+                interfaceComp.removeInterfaceFromRequiredOrImplemented();
+                offspring.addExternalInterface(interfaceComp);
+                offspring.addImplementedInterface(interfaceComp, newComp);
+
+                Collection<DependencyRelationship> dependencies = interfaceComp.getDependencies();
+                for (DependencyRelationship dependency : dependencies) {
+                    Package dependent = offspring.findPackageByName(dependency.getPackageOfDependency().getName());
+                    dependency.setClient(dependent);
+                    offspring.addRelationship(dependency);
+                }
+            }
+        }
+    }
+
+    private static GeneralizationRelationship getGeneralizationForClass(Element cls) {
+        for (Relationship relationship : ((Class) cls).getRelationships()) {
+            if (relationship instanceof GeneralizationRelationship) {
+                GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+                if (generalization.getParent().equals(cls))
+                    return (GeneralizationRelationship) relationship;
+            }
+        }
+
+        return null;
+    }
 }

@@ -1,28 +1,28 @@
 package jmetal.experiments.indicators;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import jmetal.qualityIndicator.util.MetricsUtil;
 import jmetal.util.JMException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class QuantidadeSolucoesIguais4Objetives {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
     public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
         String[] abordagens = {
-            "MECBA", 
+                "MECBA",
 //            "MECBA-Clu",
         };
         String[] algoritmos = {
-            "nsgaii", 
-            "paes",
-            "spea2",
-            "todos"
+                "nsgaii",
+                "paes",
+                "spea2",
+                "todos"
         };
         String[] softwares = {
-            "OA_AJHotDraw", 
-            "OA_AJHsqldb",
+                "OA_AJHotDraw",
+                "OA_AJHsqldb",
         };
 
         for (String abordagem : abordagens) {
@@ -55,9 +55,9 @@ public class QuantidadeSolucoesIguais4Objetives {
                     }
 
                     //System.out.println("");
-                    System.out.println("Total de Soluções em PFComb: " + PFComb.length);
-                    System.out.println("Total de Soluções em PFInc: " + PFInc.length);
-                    System.out.println("Total de Soluções de PFComb em PFInc: " + quantidadeSolucoes);
+                    System.out.println("Total de Soluï¿½ï¿½es em PFComb: " + PFComb.length);
+                    System.out.println("Total de Soluï¿½ï¿½es em PFInc: " + PFInc.length);
+                    System.out.println("Total de Soluï¿½ï¿½es de PFComb em PFInc: " + quantidadeSolucoes);
 
                 }
             }

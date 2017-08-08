@@ -9,11 +9,11 @@ import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternMutationOperator;
 import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternsAndPLAMutationOperator;
 import br.ufpr.inf.opla.patterns.operator.impl.PLAMutation;
 import br.ufpr.inf.opla.patterns.operator.impl.PLAMutationThenDesignPatternsMutationOperator;
-import java.util.HashMap;
 import jmetal.operators.mutation.Mutation;
 
+import java.util.HashMap;
+
 /**
- *
  * @author giovaniguizzo
  */
 public class MutationOperatorFactory {

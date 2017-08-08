@@ -14,31 +14,31 @@ import jmetal.problems.OPLA;
 
 public class ArchitectureSolutionType extends SolutionType {
 
-	/**
-	 * Constructor
-	 * 
-	 * @param problem
-	 * @throws ClassNotFoundException
-	 */
+    /**
+     * Constructor
+     *
+     * @param problem
+     * @throws ClassNotFoundException
+     */
 
-	public ArchitectureSolutionType(Problem problem) throws ClassNotFoundException {
-		super(problem);
-	} 
+    public ArchitectureSolutionType(Problem problem) throws ClassNotFoundException {
+        super(problem);
+    }
 
-	/**
-	 * Creates the variables of the solution
-	 * 
-	 * @param decisionVariables
-	 */
-	public Variable[] createVariables() {
-		Variable[] variables = new Variable[problem_.getNumberOfVariables()];
+    /**
+     * Creates the variables of the solution
+     *
+     * @param decisionVariables
+     */
+    public Variable[] createVariables() {
+        Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 
-		for (int var = 0; var < problem_.getNumberOfVariables(); var++)
-			if (problem_.getName() == "OPLA") {
-				variables[var] = ((OPLA) problem_).architecture_.deepCopy();
-			}
+        for (int var = 0; var < problem_.getNumberOfVariables(); var++)
+            if (problem_.getName() == "OPLA") {
+                variables[var] = ((OPLA) problem_).architecture_.deepCopy();
+            }
 
-		return variables;
-	}
+        return variables;
+    }
 
 }

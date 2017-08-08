@@ -27,30 +27,32 @@ import jmetal.core.Variable;
 import jmetal.encodings.variable.Binary;
 
 /**
- * Class representing the solution type of solutions composed of Binary 
+ * Class representing the solution type of solutions composed of Binary
  * variables
  */
 public class BinarySolutionType extends SolutionType {
 
-	/**
-	 * Constructor
-	 * @param problem
-	 * @throws ClassNotFoundException 
-	 */
-	public BinarySolutionType(Problem problem) throws ClassNotFoundException {
-		super(problem) ;
-	} // Constructor
-	
-	/**
-	 * Creates the variables of the solution
-	 * @param decisionVariables
-	 */
-	public Variable[] createVariables() {
-		Variable[]  variables = new Variable[problem_.getNumberOfVariables()];
-		
-    for (int var = 0; var < problem_.getNumberOfVariables(); var++)
-    	variables[var] = new Binary(problem_.getLength(var)); 
-    
-    return variables ;
-	} // createVariables
+    /**
+     * Constructor
+     *
+     * @param problem
+     * @throws ClassNotFoundException
+     */
+    public BinarySolutionType(Problem problem) throws ClassNotFoundException {
+        super(problem);
+    } // Constructor
+
+    /**
+     * Creates the variables of the solution
+     *
+     * @param decisionVariables
+     */
+    public Variable[] createVariables() {
+        Variable[] variables = new Variable[problem_.getNumberOfVariables()];
+
+        for (int var = 0; var < problem_.getNumberOfVariables(); var++)
+            variables[var] = new Binary(problem_.getLength(var));
+
+        return variables;
+    } // createVariables
 } // BinarySolutionType

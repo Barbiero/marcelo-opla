@@ -5,10 +5,14 @@ import arquitetura.representation.Method;
 import br.ufpr.inf.opla.patterns.list.MethodArrayList;
 import br.ufpr.inf.opla.patterns.models.AlgorithmFamily;
 import br.ufpr.inf.opla.patterns.models.Scope;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlgorithmFamilyUtil {
+
+    private AlgorithmFamilyUtil() {
+    }
 
     public static List<AlgorithmFamily> getFamiliesFromScope(Scope scope) {
         List<AlgorithmFamily> familiesInScope = new ArrayList<>();
@@ -101,8 +105,5 @@ public class AlgorithmFamilyUtil {
                 algorithmFamily.getParticipants().add(jElement);
             }
         }
-    }
-
-    private AlgorithmFamilyUtil() {
     }
 }

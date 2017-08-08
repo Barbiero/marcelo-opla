@@ -21,8 +21,6 @@
 
 package jmetal.experiments.settings;
 
-import java.util.HashMap;
-
 import jmetal.core.Algorithm;
 import jmetal.experiments.Settings;
 import jmetal.metaheuristics.nsgaII.NSGAII;
@@ -36,90 +34,94 @@ import jmetal.problems.ProblemFactory;
 import jmetal.qualityIndicator.QualityIndicator;
 import jmetal.util.JMException;
 
+import java.util.HashMap;
+
 /**
  * Settings class of algorithm NSGA-II (real encoding)
  */
 public class NSGAII_Settings extends Settings {
-  public int populationSize_                 ; 
-  public int maxEvaluations_                 ;
-  public double mutationProbability_         ;
-  public double crossoverProbability_        ;
-  public double mutationDistributionIndex_   ;
-  public double crossoverDistributionIndex_  ;
-  
-  /**
-   * Constructor
-   * @throws JMException 
-   */
-  public NSGAII_Settings(String problem) throws JMException {
-    super(problem) ;
-    
-    Object [] problemParams = {"Real"};
-    try {
-	    problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
-    } catch (JMException e) {
-	    e.printStackTrace();
-    }  
-    // Default settings
-    populationSize_              = 100   ; 
-    maxEvaluations_              = 25000 ;
-    mutationProbability_         = 1.0/problem_.getNumberOfVariables() ;
-    crossoverProbability_        = 0.9   ;
-    mutationDistributionIndex_   = 20.0  ;
-    crossoverDistributionIndex_  = 20.0  ;
-  } // NSGAII_Settings
+    public int populationSize_;
+    public int maxEvaluations_;
+    public double mutationProbability_;
+    public double crossoverProbability_;
+    public double mutationDistributionIndex_;
+    public double crossoverDistributionIndex_;
 
-  
-  /**
-   * Configure NSGAII with user-defined parameter settings
-   * @return A NSGAII algorithm object
-   * @throws jmetal.util.JMException
-   */
-  public Algorithm configure() throws JMException {
-    Algorithm algorithm ;
-    Selection  selection ;
-    Crossover  crossover ;
-    Mutation   mutation  ;
+    /**
+     * Constructor
+     *
+     * @throws JMException
+     */
+    public NSGAII_Settings(String problem) throws JMException {
+        super(problem);
 
-    HashMap  parameters ; // Operator parameters
+        Object[] problemParams = {"Real"};
+        try {
+            problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
+        } catch (JMException e) {
+            e.printStackTrace();
+        }
+        // Default settings
+        populationSize_ = 100;
+        maxEvaluations_ = 25000;
+        mutationProbability_ = 1.0 / problem_.getNumberOfVariables();
+        crossoverProbability_ = 0.9;
+        mutationDistributionIndex_ = 20.0;
+        crossoverDistributionIndex_ = 20.0;
+    } // NSGAII_Settings
 
-    QualityIndicator indicators ;
-    
-    // Creating the algorithm. There are two choices: NSGAII and its steady-
-    // state variant ssNSGAII
-    algorithm = new NSGAII(problem_) ;
-    //algorithm = new ssNSGAII(problem_) ;
-    
-    // Algorithm parameters
-    algorithm.setInputParameter("populationSize",populationSize_);
-    algorithm.setInputParameter("maxEvaluations",maxEvaluations_);
 
-    // Mutation and Crossover for Real codification
-    parameters = new HashMap() ;
-    parameters.put("probability", crossoverProbability_) ;
-    parameters.put("distributionIndex", crossoverDistributionIndex_) ;
-    crossover = CrossoverFactory.getCrossoverOperator("SBXCrossover", parameters);                   
+    /**
+     * Configure NSGAII with user-defined parameter settings
+     *
+     * @return A NSGAII algorithm object
+     * @throws jmetal.util.JMException
+     */
+    public Algorithm configure() throws JMException {
+        Algorithm algorithm;
+        Selection selection;
+        Crossover crossover;
+        Mutation mutation;
 
-    parameters = new HashMap() ;
-    parameters.put("probability", mutationProbability_) ;
-    parameters.put("distributionIndex", mutationDistributionIndex_) ;
-    mutation = MutationFactory.getMutationOperator("PolynomialMutation", parameters);                        
+        HashMap parameters; // Operator parameters
 
-    // Selection Operator 
-    parameters = null ;
-    selection = SelectionFactory.getSelectionOperator("BinaryTournament2", parameters) ;     
+        QualityIndicator indicators;
 
-    // Add the operators to the algorithm
-    algorithm.addOperator("crossover",crossover);
-    algorithm.addOperator("mutation",mutation);
-    algorithm.addOperator("selection",selection);
-    
-   // Creating the indicator object
-   if ((paretoFrontFile_!=null) && (!paretoFrontFile_.equals(""))) {
-      indicators = new QualityIndicator(problem_, paretoFrontFile_);
-      algorithm.setInputParameter("indicators", indicators) ;  
-   } // if
-   
-    return algorithm ;
-  } // configure
+        // Creating the algorithm. There are two choices: NSGAII and its steady-
+        // state variant ssNSGAII
+        algorithm = new NSGAII(problem_);
+        //algorithm = new ssNSGAII(problem_) ;
+
+        // Algorithm parameters
+        algorithm.setInputParameter("populationSize", populationSize_);
+        algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
+
+        // Mutation and Crossover for Real codification
+        parameters = new HashMap();
+        parameters.put("probability", crossoverProbability_);
+        parameters.put("distributionIndex", crossoverDistributionIndex_);
+        crossover = CrossoverFactory.getCrossoverOperator("SBXCrossover", parameters);
+
+        parameters = new HashMap();
+        parameters.put("probability", mutationProbability_);
+        parameters.put("distributionIndex", mutationDistributionIndex_);
+        mutation = MutationFactory.getMutationOperator("PolynomialMutation", parameters);
+
+        // Selection Operator
+        parameters = null;
+        selection = SelectionFactory.getSelectionOperator("BinaryTournament2", parameters);
+
+        // Add the operators to the algorithm
+        algorithm.addOperator("crossover", crossover);
+        algorithm.addOperator("mutation", mutation);
+        algorithm.addOperator("selection", selection);
+
+        // Creating the indicator object
+        if ((paretoFrontFile_ != null) && (!paretoFrontFile_.equals(""))) {
+            indicators = new QualityIndicator(problem_, paretoFrontFile_);
+            algorithm.setInputParameter("indicators", indicators);
+        } // if
+
+        return algorithm;
+    } // configure
 } // NSGAII_Settings

@@ -1,10 +1,10 @@
 package database;
 
+import exceptions.MissingConfigurationException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import exceptions.MissingConfigurationException;
 
 public class Database {
 
@@ -16,7 +16,7 @@ public class Database {
     /**
      * Create a connection with database and returns a Statement to working
      * with.
-     * 
+     *
      * @return
      * @throws ClassNotFoundException
      * @throws java.sql.SQLException
@@ -24,19 +24,19 @@ public class Database {
      */
     public static Connection getConnection() throws MissingConfigurationException, SQLException, ClassNotFoundException {
 
-	if ("".equals(pathDatabase))
-	    throw new MissingConfigurationException("Path to database should not be blank");
+        if ("".equals(pathDatabase))
+            throw new MissingConfigurationException("Path to database should not be blank");
 
-	return makeConnection();
+        return makeConnection();
     }
 
     private static Connection makeConnection() throws SQLException, ClassNotFoundException {
-	Class.forName("org.sqlite.JDBC");
-	return DriverManager.getConnection("jdbc:sqlite:" + pathDatabase);
+        Class.forName("org.sqlite.JDBC");
+        return DriverManager.getConnection("jdbc:sqlite:" + pathDatabase);
     }
 
     public static void setPathToDB(String path) {
-	pathDatabase = path;
+        pathDatabase = path;
     }
 
 }

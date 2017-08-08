@@ -6,6 +6,7 @@ import br.ufpr.inf.opla.patterns.designpatterns.Bridge;
 import br.ufpr.inf.opla.patterns.designpatterns.DesignPattern;
 import br.ufpr.inf.opla.patterns.models.AlgorithmFamily;
 import br.ufpr.inf.opla.patterns.models.ps.PS;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

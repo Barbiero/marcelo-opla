@@ -33,41 +33,43 @@ import jmetal.util.NonDominatedSolutionList;
  */
 public class RandomSearch extends Algorithm {
 
-  /**
-  * Constructor
-  * @param problem Problem to solve
-  */
-  public RandomSearch(Problem problem){
-    super (problem) ;
-  } // RandomSearch
+    /**
+     * Constructor
+     *
+     * @param problem Problem to solve
+     */
+    public RandomSearch(Problem problem) {
+        super(problem);
+    } // RandomSearch
 
-  /**
-  * Runs the RandomSearch algorithm.
-  * @return a <code>SolutionSet</code> that is a set of solutions
-  * as a result of the algorithm execution
-   * @throws JMException
-  */
-  public SolutionSet execute() throws JMException, ClassNotFoundException {
-    int maxEvaluations ;
-    int evaluations    ;
+    /**
+     * Runs the RandomSearch algorithm.
+     *
+     * @return a <code>SolutionSet</code> that is a set of solutions
+     * as a result of the algorithm execution
+     * @throws JMException
+     */
+    public SolutionSet execute() throws JMException, ClassNotFoundException {
+        int maxEvaluations;
+        int evaluations;
 
-    maxEvaluations    = ((Integer)getInputParameter("maxEvaluations")).intValue();
+        maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
 
-    //Initialize the variables
-    evaluations = 0;
+        //Initialize the variables
+        evaluations = 0;
 
-    NonDominatedSolutionList ndl = new NonDominatedSolutionList();
+        NonDominatedSolutionList ndl = new NonDominatedSolutionList();
 
-    // Create the initial solutionSet
-    Solution newSolution;
-    for (int i = 0; i < maxEvaluations; i++) {
-      newSolution = new Solution(problem_);
-      problem_.evaluate(newSolution);
-      problem_.evaluateConstraints(newSolution);
-      evaluations++;
-      ndl.add(newSolution);
-    } //for
+        // Create the initial solutionSet
+        Solution newSolution;
+        for (int i = 0; i < maxEvaluations; i++) {
+            newSolution = new Solution(problem_);
+            problem_.evaluate(newSolution);
+            problem_.evaluateConstraints(newSolution);
+            evaluations++;
+            ndl.add(newSolution);
+        } //for
 
-    return ndl;
-  } // execute
+        return ndl;
+    } // execute
 } // RandomSearch

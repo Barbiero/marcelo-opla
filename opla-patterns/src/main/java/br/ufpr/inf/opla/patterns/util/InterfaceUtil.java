@@ -2,12 +2,9 @@ package br.ufpr.inf.opla.patterns.util;
 
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.Architecture;
-import arquitetura.representation.Concern;
-import arquitetura.representation.Element;
-import arquitetura.representation.Interface;
-import arquitetura.representation.Method;
+import arquitetura.representation.*;
 import br.ufpr.inf.opla.patterns.repositories.ArchitectureRepository;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class InterfaceUtil {
+
+    private InterfaceUtil() {
+    }
 
     public static Interface createInterfaceForSetOfElements(String interfaceName, List<Element> participants) {
         Interface anInterface = null;
@@ -28,14 +28,14 @@ public class InterfaceUtil {
             if (naArquitetura) {
                 anInterface = architecture.createInterface(interfaceName);
                 architecture.removeInterface(anInterface);
-                
+
                 tempElements = Collections.unmodifiableList(new ArrayList<>(architecture.getElements()));
             } else {
                 aPackage = architecture.findPackageByName(UtilResources.extractPackageName(namespace));
-                
+
                 anInterface = aPackage.createInterface(interfaceName);
                 aPackage.removeInterface(anInterface);
-                
+
                 tempElements = Collections.unmodifiableList(new ArrayList<>(aPackage.getElements()));
             }
             List<Method> methodsFromSetOfElements = MethodUtil.createMethodsFromSetOfElements(participants);
@@ -65,8 +65,5 @@ public class InterfaceUtil {
             }
         }
         return anInterface;
-    }
-
-    private InterfaceUtil() {
     }
 }

@@ -9,27 +9,28 @@ import br.ufpr.inf.opla.patterns.models.ps.impl.PSMediator;
 import br.ufpr.inf.opla.patterns.util.ElementUtil;
 import br.ufpr.inf.opla.patterns.util.MediatorUtil;
 import br.ufpr.inf.opla.patterns.util.RelationshipUtil;
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.collections4.CollectionUtils;
 
 public class Mediator extends DesignPattern {
 
     private static volatile Mediator INSTANCE;
+
+    private Mediator() {
+        super("Mediator", "Behavioral");
+    }
 
     public static synchronized Mediator getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Mediator();
         }
         return INSTANCE;
-    }
-
-    private Mediator() {
-        super("Mediator", "Behavioral");
     }
 
     @Override

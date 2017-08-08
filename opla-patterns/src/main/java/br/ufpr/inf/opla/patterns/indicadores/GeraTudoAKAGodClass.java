@@ -1,39 +1,36 @@
 package br.ufpr.inf.opla.patterns.indicadores;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import jmetal.core.SolutionSet;
 import jmetal.qualityIndicator.util.MetricsUtil;
 import jmetal.util.JMException;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class GeraTudoAKAGodClass {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
     public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException, InterruptedException {
         String[] plas = {
-            //            "MicrowaveOvenSoftware",
-            //            "ServiceAndSupportSystem",
-            "agm"
+                //            "MicrowaveOvenSoftware",
+                //            "ServiceAndSupportSystem",
+                "agm"
         };
 
         String[] contexts = {
-            "PLAMutation",
-            "OnlyBridgeMutation",
-            "OnlyMediatorMutation",
-            "OnlyPatternsMutation",
-            "OnlyPatternsMutationNR",
-            "OnlyStrategyMutation",
-            "PLAMutationWithBridge",
-            "PLAMutationWithMediator",
-            "PLAMutationWithPatterns",
-            "PLAMutationWithPatternsNR",
-            "PLAMutationWithStrategy"
+                "PLAMutation",
+                "OnlyBridgeMutation",
+                "OnlyMediatorMutation",
+                "OnlyPatternsMutation",
+                "OnlyPatternsMutationNR",
+                "OnlyStrategyMutation",
+                "PLAMutationWithBridge",
+                "PLAMutationWithMediator",
+                "PLAMutationWithPatterns",
+                "PLAMutationWithPatternsNR",
+                "PLAMutationWithStrategy"
         };
 
         MetricsUtil mu = new MetricsUtil();

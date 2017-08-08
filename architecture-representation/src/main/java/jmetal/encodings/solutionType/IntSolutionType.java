@@ -27,30 +27,32 @@ import jmetal.core.Variable;
 import jmetal.encodings.variable.Int;
 
 /**
- * Class representing the solution type of solutions composed of Int variables 
+ * Class representing the solution type of solutions composed of Int variables
  */
 public class IntSolutionType extends SolutionType {
 
-	/**
-	 * Constructor
-	 * @param problem
-	 * @throws ClassNotFoundException 
-	 */
-	public IntSolutionType(Problem problem) throws ClassNotFoundException {
-		super(problem) ;
-	} // Constructor
+    /**
+     * Constructor
+     *
+     * @param problem
+     * @throws ClassNotFoundException
+     */
+    public IntSolutionType(Problem problem) throws ClassNotFoundException {
+        super(problem);
+    } // Constructor
 
-	/**
-	 * Creates the variables of the solution
-	 * @param decisionVariables
-	 */
-	public Variable[] createVariables() {
-		Variable[] variables = new Variable[problem_.getNumberOfVariables()];
+    /**
+     * Creates the variables of the solution
+     *
+     * @param decisionVariables
+     */
+    public Variable[] createVariables() {
+        Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 
-		for (int var = 0; var < problem_.getNumberOfVariables(); var++)
-			variables[var] = new Int((int)problem_.getLowerLimit(var),
-					(int)problem_.getUpperLimit(var));    
+        for (int var = 0; var < problem_.getNumberOfVariables(); var++)
+            variables[var] = new Int((int) problem_.getLowerLimit(var),
+                    (int) problem_.getUpperLimit(var));
 
-		return variables ;
-	} // createVariables
+        return variables;
+    } // createVariables
 } // IntSolutionType

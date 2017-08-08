@@ -7,13 +7,12 @@
 package com.ufpr.br.opla.exceptions;
 
 /**
- *
  * @author elf
  */
-public class MissingConfigurationException extends Exception{
-    
-    public MissingConfigurationException(String message){
+public class MissingConfigurationException extends Exception {
+
+    public MissingConfigurationException(String message) {
         super(message);
     }
-    
+
 }

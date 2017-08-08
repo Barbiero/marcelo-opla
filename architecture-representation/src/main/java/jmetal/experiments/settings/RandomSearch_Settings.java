@@ -32,45 +32,47 @@ import jmetal.util.JMException;
  * Settings class of algorithm RandomSearch
  */
 public class RandomSearch_Settings extends Settings {
-  // Default settings
-  public int maxEvaluations_ = 25000;
-  
-  /**
-   * Constructor
-   * @param problem Problem to solve
-   */
-  public RandomSearch_Settings(String problem) {
-    super(problem);
-    
-    Object [] problemParams = {"Real"};
-    try {
-	    problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
-    } catch (JMException e) {
-	    e.printStackTrace();
-    }      
-  } // RandomSearch_Settings
+    // Default settings
+    public int maxEvaluations_ = 25000;
 
-  /**
-   * Configure the MOCell algorithm with default parameter settings
-   * @return an algorithm object
-   * @throws jmetal.util.JMException
-   */
-  public Algorithm configure() throws JMException {
-    Algorithm algorithm;
+    /**
+     * Constructor
+     *
+     * @param problem Problem to solve
+     */
+    public RandomSearch_Settings(String problem) {
+        super(problem);
 
-    QualityIndicator indicators;
+        Object[] problemParams = {"Real"};
+        try {
+            problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
+        } catch (JMException e) {
+            e.printStackTrace();
+        }
+    } // RandomSearch_Settings
 
-    // Creating the problem
-    algorithm = new RandomSearch(problem_);
+    /**
+     * Configure the MOCell algorithm with default parameter settings
+     *
+     * @return an algorithm object
+     * @throws jmetal.util.JMException
+     */
+    public Algorithm configure() throws JMException {
+        Algorithm algorithm;
 
-    // Algorithm parameters
-    algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
+        QualityIndicator indicators;
 
-    // Creating the indicator object
-    if ((paretoFrontFile_!=null) && (!paretoFrontFile_.equals(""))) {
-      indicators = new QualityIndicator(problem_, paretoFrontFile_);
-      algorithm.setInputParameter("indicators", indicators);
-    } // if
-    return algorithm;
-  } // Constructor
+        // Creating the problem
+        algorithm = new RandomSearch(problem_);
+
+        // Algorithm parameters
+        algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
+
+        // Creating the indicator object
+        if ((paretoFrontFile_ != null) && (!paretoFrontFile_.equals(""))) {
+            indicators = new QualityIndicator(problem_, paretoFrontFile_);
+            algorithm.setInputParameter("indicators", indicators);
+        } // if
+        return algorithm;
+    } // Constructor
 } // RandomSearch_Settings

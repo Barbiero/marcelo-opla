@@ -4,10 +4,6 @@ import arquitetura.io.ReaderConfig;
 import br.ufpr.inf.opla.patterns.factory.MutationOperatorFactory;
 import br.ufpr.inf.opla.patterns.indicadores.Hypervolume;
 import br.ufpr.inf.opla.patterns.repositories.ArchitectureRepository;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
 import jmetal.core.Algorithm;
 import jmetal.core.SolutionSet;
 import jmetal.metaheuristics.nsgaII.NSGAII;
@@ -19,6 +15,11 @@ import jmetal.operators.selection.SelectionFactory;
 import jmetal.problems.OPLA;
 import jmetal.util.JMException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+
 public class NSGAII_OPLA {
 
     public static int populationSize_;
@@ -26,7 +27,7 @@ public class NSGAII_OPLA {
     public static double mutationProbability_;
     public static double crossoverProbability_;
 
-//--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+    //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
     public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
 //        args = new String[]{"1", "1", "0.0", ArchitectureRepository.BET, "Teste", "PLAMutation", "false"};

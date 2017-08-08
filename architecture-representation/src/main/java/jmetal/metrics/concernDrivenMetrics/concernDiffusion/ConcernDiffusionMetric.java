@@ -1,29 +1,30 @@
 package jmetal.metrics.concernDrivenMetrics.concernDiffusion;
-import java.util.ArrayList;
 
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Concern;
 
+import java.util.ArrayList;
+
 
 public abstract class ConcernDiffusionMetric<T> {
-	private final Architecture architecture;
-	private final ArrayList<T> results = new ArrayList<T>();
+    private final Architecture architecture;
+    private final ArrayList<T> results = new ArrayList<T>();
 
-	public ConcernDiffusionMetric(Architecture architecture){
-		this.architecture = architecture;
-		
-		for (Concern concern : architecture.getAllConcerns()) {
-			getResults().add(getElementForConcern(concern));
-		}
-	}
+    public ConcernDiffusionMetric(Architecture architecture) {
+        this.architecture = architecture;
 
-	public Architecture getArchitecture() {
-		return architecture;
-	}
+        for (Concern concern : architecture.getAllConcerns()) {
+            getResults().add(getElementForConcern(concern));
+        }
+    }
 
-	public ArrayList<T> getResults() {
-		return results;
-	}
-	
-	protected abstract T getElementForConcern(Concern concern);
+    public Architecture getArchitecture() {
+        return architecture;
+    }
+
+    public ArrayList<T> getResults() {
+        return results;
+    }
+
+    protected abstract T getElementForConcern(Concern concern);
 }

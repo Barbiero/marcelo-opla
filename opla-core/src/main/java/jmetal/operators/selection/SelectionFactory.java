@@ -21,31 +21,31 @@
 
 package jmetal.operators.selection;
 
-import java.util.HashMap;
-
-import jmetal.core.Operator;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
+
+import java.util.HashMap;
 
 /**
  * Class implementing a factory of selection operators
  */
 public class SelectionFactory {
-    
-  /**
-   * Gets a selection operator through its name.
-   * @param name of the operator
-   * @return the operator
-   * @throws JMException 
-   */
-  public static Selection getSelectionOperator(String name, HashMap parameters) throws JMException {
-    if (name.equalsIgnoreCase("BinaryTournament2"))
-      return new BinaryTournament2(parameters);
-    else if (name.equalsIgnoreCase("BinaryTournament"))
-    return new BinaryTournament(parameters);
-    else {
-      Configuration.logger_.severe("Operator '" + name + "' not found ");
-      throw new JMException("Exception in " + name + ".getSelectionOperator()") ;
-    } // else    
-  } // getSelectionOperator
+
+    /**
+     * Gets a selection operator through its name.
+     *
+     * @param name of the operator
+     * @return the operator
+     * @throws JMException
+     */
+    public static Selection getSelectionOperator(String name, HashMap parameters) throws JMException {
+        if (name.equalsIgnoreCase("BinaryTournament2"))
+            return new BinaryTournament2(parameters);
+        else if (name.equalsIgnoreCase("BinaryTournament"))
+            return new BinaryTournament(parameters);
+        else {
+            Configuration.logger_.severe("Operator '" + name + "' not found ");
+            throw new JMException("Exception in " + name + ".getSelectionOperator()");
+        } // else
+    } // getSelectionOperator
 } // SelectionFactory

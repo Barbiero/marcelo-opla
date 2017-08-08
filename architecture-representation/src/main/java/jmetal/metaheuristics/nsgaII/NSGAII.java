@@ -20,11 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package jmetal.metaheuristics.nsgaII;
 
-import jmetal.core.Algorithm;
-import jmetal.core.Operator;
-import jmetal.core.Problem;
-import jmetal.core.Solution;
-import jmetal.core.SolutionSet;
+import jmetal.core.*;
 import jmetal.qualityIndicator.QualityIndicator;
 import jmetal.util.Distance;
 import jmetal.util.JMException;

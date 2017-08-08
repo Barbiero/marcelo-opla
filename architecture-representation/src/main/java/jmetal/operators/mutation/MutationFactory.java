@@ -21,33 +21,33 @@
 
 package jmetal.operators.mutation;
 
-import java.util.HashMap;
-
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
+
+import java.util.HashMap;
 
 
 /**
  * Class implementing a factory for Mutation objects.
  */
 public class MutationFactory {
-  
-  /**
-   * Gets a crossover operator through its name.
-   * @param name of the operator
-   * @return the operator
-   * @throws JMException 
-   */
-	public static Mutation getMutationOperator(String name, HashMap parameters) throws JMException{
-		 
-	    	if (name.equalsIgnoreCase("PLAFeatureMutation"))
-			      return new PLAFeatureMutation(parameters);
-		    else
-		    {
-		    	Configuration.logger_.severe("Operator '" + name + "' not found ");
-		    	Class cls = java.lang.String.class;
-		    	String name2 = cls.getName() ;    
-		    	throw new JMException("Exception in " + name2 + ".getMutationOperator()") ;
-		    }
-	  } // getMutationOperator
-	} // MutationFactory
+
+    /**
+     * Gets a crossover operator through its name.
+     *
+     * @param name of the operator
+     * @return the operator
+     * @throws JMException
+     */
+    public static Mutation getMutationOperator(String name, HashMap parameters) throws JMException {
+
+        if (name.equalsIgnoreCase("PLAFeatureMutation"))
+            return new PLAFeatureMutation(parameters);
+        else {
+            Configuration.logger_.severe("Operator '" + name + "' not found ");
+            Class cls = java.lang.String.class;
+            String name2 = cls.getName();
+            throw new JMException("Exception in " + name2 + ".getMutationOperator()");
+        }
+    } // getMutationOperator
+} // MutationFactory

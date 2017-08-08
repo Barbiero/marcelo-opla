@@ -1,19 +1,19 @@
 package jmetal.experiments;
 
 public class Fitness {
-	
-	private double value;
 
-	public Fitness(double d) {
-		this.value = d;
-	}
+    private double value;
 
-	public double getValue() {
-		return value;
-	}
+    public Fitness(double d) {
+        this.value = d;
+    }
 
-	public void setValue(double value) {
-		this.value = value;
-	}
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
 
 }

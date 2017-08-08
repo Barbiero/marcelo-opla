@@ -11,23 +11,24 @@ import br.ufpr.inf.opla.patterns.repositories.ArchitectureRepository;
 import br.ufpr.inf.opla.patterns.util.AdapterUtil;
 import br.ufpr.inf.opla.patterns.util.ElementUtil;
 import br.ufpr.inf.opla.patterns.util.RelationshipUtil;
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.collections4.CollectionUtils;
 
 public class Adapter extends DesignPattern {
 
     private static volatile Adapter INSTANCE;
+
+    private Adapter() {
+        super("Adapter", "Structural");
+    }
 
     public static synchronized Adapter getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Adapter();
         }
         return INSTANCE;
-    }
-
-    private Adapter() {
-        super("Adapter", "Structural");
     }
 
     @Override

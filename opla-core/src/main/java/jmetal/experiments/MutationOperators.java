@@ -1,15 +1,15 @@
 package jmetal.experiments;
 
 public class MutationOperators {
-	
-	String operators[];
 
-	public void setOperators(String operators[]) {
-		this.operators = operators;
-	}
+    String operators[];
 
-	public String[] getOperators() {
-		return operators;
-	}
-	
+    public String[] getOperators() {
+        return operators;
+    }
+
+    public void setOperators(String operators[]) {
+        this.operators = operators;
+    }
+
 }

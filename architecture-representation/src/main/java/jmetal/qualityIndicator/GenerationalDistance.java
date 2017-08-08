@@ -22,54 +22,54 @@
 package jmetal.qualityIndicator;
 
 /**
- * This class implements the generational distance indicator. It can be used also 
- * as a command line by typing: 
- * "java jmetal.qualityIndicator.GenerationalDistance <solutionFrontFile>  
+ * This class implements the generational distance indicator. It can be used also
+ * as a command line by typing:
+ * "java jmetal.qualityIndicator.GenerationalDistance <solutionFrontFile>
  * <trueFrontFile> <numberOfObjectives>"
- * Reference: Van Veldhuizen, D.A., Lamont, G.B.: Multiobjective Evolutionary 
- *            Algorithm Research: A History and Analysis. 
- *            Technical Report TR-98-03, Dept. Elec. Comput. Eng., Air Force 
- *            Inst. Technol. (1998)
+ * Reference: Van Veldhuizen, D.A., Lamont, G.B.: Multiobjective Evolutionary
+ * Algorithm Research: A History and Analysis.
+ * Technical Report TR-98-03, Dept. Elec. Comput. Eng., Air Force
+ * Inst. Technol. (1998)
  */
 public class GenerationalDistance {
-  jmetal.qualityIndicator.util.MetricsUtil utils_;  //utils_ is used to access to the
-                                           //MetricsUtil funcionalities
-  
-  static final double pow_ = 2.0;          //pow. This is the pow used for the
-                                           //distances
-  
-  /**
-   * Constructor.
-   * Creates a new instance of the generational distance metric. 
-   */
-  public GenerationalDistance() {
-    utils_ = new jmetal.qualityIndicator.util.MetricsUtil();
-  } // GenerationalDistance
-  
-  /**
-   * Returns the generational distance value for a given front
-   * @param front The front 
-   * @param trueParetoFront The true pareto front
-   */
-  public double generationalDistance(double [][] front,
-                                     double [][] trueParetoFront, 
-                                     int numberOfObjectives) {
-    
-    // STEP 3. Sum the distances between each point of the front and the 
-    // nearest point in the true Pareto front
-    double sum = 0.0;
-    for (int i = 0; i < front.length; i++)   
-    	sum += Math.pow(utils_.distanceToClosedPoint(front[i],trueParetoFront), pow_);
+    static final double pow_ = 2.0;          //pow. This is the pow used for the
+    //MetricsUtil funcionalities
+    jmetal.qualityIndicator.util.MetricsUtil utils_;  //utils_ is used to access to the
+    //distances
 
-    // STEP 4. Obtain the sqrt of the sum
-    sum = Math.pow(sum,1.0/pow_);
-    
-    // STEP 5. Divide the sum by the maximum number of points of the front
-    System.out.println("GDvalor front = " + front.length);
-    System.out.println("GDvalor truefront = " + trueParetoFront.length);
-    double generationalDistance = (sum / front.length);
-    
-    return generationalDistance;
-  } // generationalDistance
-  
+    /**
+     * Constructor.
+     * Creates a new instance of the generational distance metric.
+     */
+    public GenerationalDistance() {
+        utils_ = new jmetal.qualityIndicator.util.MetricsUtil();
+    } // GenerationalDistance
+
+    /**
+     * Returns the generational distance value for a given front
+     *
+     * @param front           The front
+     * @param trueParetoFront The true pareto front
+     */
+    public double generationalDistance(double[][] front,
+                                       double[][] trueParetoFront,
+                                       int numberOfObjectives) {
+
+        // STEP 3. Sum the distances between each point of the front and the
+        // nearest point in the true Pareto front
+        double sum = 0.0;
+        for (int i = 0; i < front.length; i++)
+            sum += Math.pow(utils_.distanceToClosedPoint(front[i], trueParetoFront), pow_);
+
+        // STEP 4. Obtain the sqrt of the sum
+        sum = Math.pow(sum, 1.0 / pow_);
+
+        // STEP 5. Divide the sum by the maximum number of points of the front
+        System.out.println("GDvalor front = " + front.length);
+        System.out.println("GDvalor truefront = " + trueParetoFront.length);
+        double generationalDistance = (sum / front.length);
+
+        return generationalDistance;
+    } // generationalDistance
+
 } // GenerationalDistance

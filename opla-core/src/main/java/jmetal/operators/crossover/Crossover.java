@@ -21,16 +21,16 @@
 
 package jmetal.operators.crossover;
 
-import java.util.HashMap;
-
 import jmetal.core.Operator;
+
+import java.util.HashMap;
 
 /**
  * This class represents the super class of all the crossover operators
  */
 public abstract class Crossover extends Operator {
 
-	public Crossover(HashMap<String, Object> parameters) {
-	  super(parameters);
-  }
+    public Crossover(HashMap<String, Object> parameters) {
+        super(parameters);
+    }
 } // Crossover

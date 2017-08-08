@@ -21,18 +21,18 @@
 
 package jmetal.operators.mutation;
 
-import java.util.HashMap;
-
 import jmetal.core.Operator;
+
+import java.util.HashMap;
 
 /**
  * This class represents the super class of all the mutations operators
  */
 public abstract class Mutation extends Operator {
 
-	private static final long serialVersionUID = -4307112630484321270L;
+    private static final long serialVersionUID = -4307112630484321270L;
 
-	public Mutation(HashMap<String, Object> parameters) {
-	  super(parameters);
-  }
+    public Mutation(HashMap<String, Object> parameters) {
+        super(parameters);
+    }
 } // Mutation

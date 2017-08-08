@@ -6,15 +6,14 @@ import java.io.FilenameFilter;
 /**
  * Classe responsável por verificar se modelo (arquitetura) é completa. Uma
  * arquitetura completa deve conter um arquivo .uml, .notation e .di
- * 
+ *
  * @author edipofederle<edipofederle@gmail.com>
- * 
  */
 public class OnlyCompleteResources implements FilenameFilter {
 
     public boolean accept(File dir, String name) {
-	return true;
-    	/*boolean resoucesCompleteNotation = false;
+        return true;
+        /*boolean resoucesCompleteNotation = false;
 	boolean resoucesCompletDi = false;
 
 	File[] listOfFiles = dir.listFiles();

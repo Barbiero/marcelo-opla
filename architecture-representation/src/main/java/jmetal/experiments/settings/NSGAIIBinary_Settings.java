@@ -21,8 +21,6 @@
 
 package jmetal.experiments.settings;
 
-import java.util.HashMap;
-
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
 import jmetal.experiments.Settings;
@@ -34,84 +32,87 @@ import jmetal.problems.ProblemFactory;
 import jmetal.qualityIndicator.QualityIndicator;
 import jmetal.util.JMException;
 
+import java.util.HashMap;
+
 /**
  * Settings class of algorithm NSGA-II (binary encoding)
  */
 public class NSGAIIBinary_Settings extends Settings {
-  
-  int populationSize_  ;
-  int maxEvaluations_  ;
 
-  double mutationProbability_  ;
-  double crossoverProbability_ ;  
-  
-  /**
-   * Constructor
-   */
-  public NSGAIIBinary_Settings(String problem) {
-    super(problem) ;
-    
-    Object [] problemParams = {"BinaryReal"};
-    try {
-	    problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
-    } catch (JMException e) {
-	    e.printStackTrace();
-    }      
-    
-    // Default settings
-    populationSize_ = 100   ;
-    maxEvaluations_ = 25000 ;
+    int populationSize_;
+    int maxEvaluations_;
 
-    mutationProbability_  = 1.0/problem_.getNumberOfBits();
-    crossoverProbability_ = 0.9 ; 
-  } // NSGAIIBinary_Settings
-  
-  /**
-   * Configure NSGAII with user-defined parameter settings
-   * @return A NSGAII algorithm object
-   * @throws jmetal.util.JMException
-   */
-  public Algorithm configure() throws JMException {
-    Algorithm algorithm ;
-    Operator  selection ;
-    Operator  crossover ;
-    Operator  mutation  ;
-    
-    QualityIndicator indicators ;
- 
-    HashMap  parameters ; // Operator parameters
+    double mutationProbability_;
+    double crossoverProbability_;
 
-    // Creating the problem
-    algorithm = new NSGAII(problem_) ;
-    
-    // Algorithm parameters
-    algorithm.setInputParameter("populationSize", populationSize_);
-    algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
+    /**
+     * Constructor
+     */
+    public NSGAIIBinary_Settings(String problem) {
+        super(problem);
 
-    
-    // Mutation and Crossover Binary codification
-    parameters = new HashMap() ;
-    parameters.put("probability", crossoverProbability_) ;
-    crossover = CrossoverFactory.getCrossoverOperator("SinglePointCrossover", parameters);                   
+        Object[] problemParams = {"BinaryReal"};
+        try {
+            problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
+        } catch (JMException e) {
+            e.printStackTrace();
+        }
 
-    parameters = new HashMap() ;
-    parameters.put("probability", mutationProbability_) ;
-    mutation = MutationFactory.getMutationOperator("BitFlipMutation",parameters);    
-    
-    // Selection Operator 
-    parameters = null ;
-    selection = SelectionFactory.getSelectionOperator("BinaryTournament2", parameters) ;   
-    
-    // Add the operators to the algorithm
-    algorithm.addOperator("crossover",crossover);
-    algorithm.addOperator("mutation",mutation);
-    algorithm.addOperator("selection",selection);
-    
-   // Creating the indicator object
-    if ((paretoFrontFile_!=null) && (!paretoFrontFile_.equals(""))) {
-      indicators = new QualityIndicator(problem_, paretoFrontFile_);
-      algorithm.setInputParameter("indicators", indicators) ;  
-   } // if
-    return algorithm ;
-  } // configure
+        // Default settings
+        populationSize_ = 100;
+        maxEvaluations_ = 25000;
+
+        mutationProbability_ = 1.0 / problem_.getNumberOfBits();
+        crossoverProbability_ = 0.9;
+    } // NSGAIIBinary_Settings
+
+    /**
+     * Configure NSGAII with user-defined parameter settings
+     *
+     * @return A NSGAII algorithm object
+     * @throws jmetal.util.JMException
+     */
+    public Algorithm configure() throws JMException {
+        Algorithm algorithm;
+        Operator selection;
+        Operator crossover;
+        Operator mutation;
+
+        QualityIndicator indicators;
+
+        HashMap parameters; // Operator parameters
+
+        // Creating the problem
+        algorithm = new NSGAII(problem_);
+
+        // Algorithm parameters
+        algorithm.setInputParameter("populationSize", populationSize_);
+        algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
+
+
+        // Mutation and Crossover Binary codification
+        parameters = new HashMap();
+        parameters.put("probability", crossoverProbability_);
+        crossover = CrossoverFactory.getCrossoverOperator("SinglePointCrossover", parameters);
+
+        parameters = new HashMap();
+        parameters.put("probability", mutationProbability_);
+        mutation = MutationFactory.getMutationOperator("BitFlipMutation", parameters);
+
+        // Selection Operator
+        parameters = null;
+        selection = SelectionFactory.getSelectionOperator("BinaryTournament2", parameters);
+
+        // Add the operators to the algorithm
+        algorithm.addOperator("crossover", crossover);
+        algorithm.addOperator("mutation", mutation);
+        algorithm.addOperator("selection", selection);
+
+        // Creating the indicator object
+        if ((paretoFrontFile_ != null) && (!paretoFrontFile_.equals(""))) {
+            indicators = new QualityIndicator(problem_, paretoFrontFile_);
+            algorithm.setInputParameter("indicators", indicators);
+        } // if
+        return algorithm;
+    } // configure
 } // NSGAIIBinary_Settings

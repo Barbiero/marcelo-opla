@@ -21,16 +21,16 @@
 
 package jmetal.operators.selection;
 
-import java.util.HashMap;
-
 import jmetal.core.Operator;
+
+import java.util.HashMap;
 
 /**
  * This class represents the super class of all the selection operators
  */
 public abstract class Selection extends Operator {
 
-	public Selection(HashMap<String, Object> parameters) {
-	  super(parameters);
-  }
+    public Selection(HashMap<String, Object> parameters) {
+        super(parameters);
+    }
 } // Selection

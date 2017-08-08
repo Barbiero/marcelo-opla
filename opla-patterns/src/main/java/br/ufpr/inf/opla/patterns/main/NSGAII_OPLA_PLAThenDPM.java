@@ -4,11 +4,6 @@ import arquitetura.io.ReaderConfig;
 import br.ufpr.inf.opla.patterns.factory.MutationOperatorFactory;
 import br.ufpr.inf.opla.patterns.indicadores.Hypervolume;
 import br.ufpr.inf.opla.patterns.repositories.ArchitectureRepository;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
 import jmetal.core.Solution;
 import jmetal.core.SolutionSet;
 import jmetal.metaheuristics.nsgaII.NSGAII;
@@ -20,6 +15,12 @@ import jmetal.operators.selection.SelectionFactory;
 import jmetal.problems.OPLA;
 import jmetal.util.JMException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+
 public class NSGAII_OPLA_PLAThenDPM {
 
     public static int populationSize_;
@@ -27,7 +28,7 @@ public class NSGAII_OPLA_PLAThenDPM {
     public static double mutationProbability_;
     public static double crossoverProbability_;
 
-//--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+    //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
     public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
 //        args = new String[]{"100", "1000", "0.9", ArchitectureRepository.AGM, "Teste", "false"};
@@ -183,7 +184,7 @@ public class NSGAII_OPLA_PLAThenDPM {
             algorithm.addOperator("mutation", designPatternMutation);
             {
                 SolutionSet tempResultFront = new SolutionSet(populationSize_);
-                for (Iterator<Solution> it = resultFront.iterator(); it.hasNext();) {
+                for (Iterator<Solution> it = resultFront.iterator(); it.hasNext(); ) {
                     Solution solution = it.next();
                     tempResultFront.add(solution);
                 }

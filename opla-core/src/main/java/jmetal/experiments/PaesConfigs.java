@@ -1,9 +1,8 @@
 package jmetal.experiments;
 
 
-
 public class PaesConfigs extends ExperimentCommomConfigs {
-  
+
     private int archiveSize;
 
     public int getArchiveSize() {
@@ -15,5 +14,4 @@ public class PaesConfigs extends ExperimentCommomConfigs {
     }
 
 
-    
 }

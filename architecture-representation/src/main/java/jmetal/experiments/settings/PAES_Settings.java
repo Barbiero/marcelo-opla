@@ -21,8 +21,6 @@
 
 package jmetal.experiments.settings;
 
-import java.util.HashMap;
-
 import jmetal.core.Algorithm;
 import jmetal.experiments.Settings;
 import jmetal.metaheuristics.paes.PAES;
@@ -32,76 +30,79 @@ import jmetal.problems.ProblemFactory;
 import jmetal.qualityIndicator.QualityIndicator;
 import jmetal.util.JMException;
 
+import java.util.HashMap;
+
 /**
  * Settings class of algorithm PAES
  */
-public class PAES_Settings extends Settings{
+public class PAES_Settings extends Settings {
 
-	public int maxEvaluations_ ;
-	public int archiveSize_    ;
-	public int biSections_     ;
-	public double mutationProbability_ ;
-	public double distributionIndex_   ;
+    public int maxEvaluations_;
+    public int archiveSize_;
+    public int biSections_;
+    public double mutationProbability_;
+    public double distributionIndex_;
 
-	/**
-	 * Constructor
-	 */
-	public PAES_Settings(String problem) {
-		super(problem) ;
-		
-    Object [] problemParams = {"Real"};
-    try {
-	    problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
-    } catch (JMException e) {
-	    e.printStackTrace();
-    }      
-  	// Default settings
-  	maxEvaluations_ = 25000 ;
-  	archiveSize_    = 100   ;
-  	biSections_     = 5     ;
-  	mutationProbability_ = 1.0/problem_.getNumberOfVariables() ;
-  	distributionIndex_   = 20.0 ;
-	} // PAES_Settings
+    /**
+     * Constructor
+     */
+    public PAES_Settings(String problem) {
+        super(problem);
 
-	/**
-	 * Configure the MOCell algorithm with default parameter settings
-	 * @return an algorithm object
-	 * @throws jmetal.util.JMException
-	 */
-	public Algorithm configure() throws JMException {
-		Algorithm algorithm ;
-		Mutation  mutation   ;
+        Object[] problemParams = {"Real"};
+        try {
+            problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
+        } catch (JMException e) {
+            e.printStackTrace();
+        }
+        // Default settings
+        maxEvaluations_ = 25000;
+        archiveSize_ = 100;
+        biSections_ = 5;
+        mutationProbability_ = 1.0 / problem_.getNumberOfVariables();
+        distributionIndex_ = 20.0;
+    } // PAES_Settings
 
-		QualityIndicator indicators ;
+    /**
+     * Configure the MOCell algorithm with default parameter settings
+     *
+     * @return an algorithm object
+     * @throws jmetal.util.JMException
+     */
+    public Algorithm configure() throws JMException {
+        Algorithm algorithm;
+        Mutation mutation;
 
-    HashMap  parameters ; // Operator parameters
+        QualityIndicator indicators;
 
-		// Creating the problem
-		algorithm = new PAES(problem_) ;
+        HashMap parameters; // Operator parameters
 
-		// Algorithm parameters
-		algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
-		algorithm.setInputParameter("biSections", biSections_);
-		algorithm.setInputParameter("archiveSize",archiveSize_ );
+        // Creating the problem
+        algorithm = new PAES(problem_);
 
-    // Mutation (Real variables)
-    parameters = new HashMap() ;
-    parameters.put("probability", mutationProbability_) ;
-    parameters.put("distributionIndex", distributionIndex_) ;
-    mutation = MutationFactory.getMutationOperator("PolynomialMutation", parameters);                    
-    
-    // Mutation (BinaryReal variables)
-    //mutation = MutationFactory.getMutationOperator("BitFlipMutation");                    
-    //mutation.setParameter("probability",0.1);
-    
-    // Add the operators to the algorithm
-    algorithm.addOperator("mutation", mutation);
+        // Algorithm parameters
+        algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
+        algorithm.setInputParameter("biSections", biSections_);
+        algorithm.setInputParameter("archiveSize", archiveSize_);
 
-		// Creating the indicator object
-    if ((paretoFrontFile_!=null) && (!paretoFrontFile_.equals(""))) {
-			indicators = new QualityIndicator(problem_, paretoFrontFile_);
-			algorithm.setInputParameter("indicators", indicators) ;  
-		} // if
-		return algorithm ;
-	} // configure
+        // Mutation (Real variables)
+        parameters = new HashMap();
+        parameters.put("probability", mutationProbability_);
+        parameters.put("distributionIndex", distributionIndex_);
+        mutation = MutationFactory.getMutationOperator("PolynomialMutation", parameters);
+
+        // Mutation (BinaryReal variables)
+        //mutation = MutationFactory.getMutationOperator("BitFlipMutation");
+        //mutation.setParameter("probability",0.1);
+
+        // Add the operators to the algorithm
+        algorithm.addOperator("mutation", mutation);
+
+        // Creating the indicator object
+        if ((paretoFrontFile_ != null) && (!paretoFrontFile_.equals(""))) {
+            indicators = new QualityIndicator(problem_, paretoFrontFile_);
+            algorithm.setInputParameter("indicators", indicators);
+        } // if
+        return algorithm;
+    } // configure
 } // PAES_Settings

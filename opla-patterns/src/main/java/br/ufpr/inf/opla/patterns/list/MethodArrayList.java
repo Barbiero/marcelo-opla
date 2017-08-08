@@ -2,6 +2,7 @@ package br.ufpr.inf.opla.patterns.list;
 
 import arquitetura.representation.Method;
 import arquitetura.representation.ParameterMethod;
+
 import java.util.ArrayList;
 import java.util.List;
 

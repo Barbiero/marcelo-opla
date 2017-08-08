@@ -10,11 +10,11 @@ import arquitetura.representation.Element;
 import br.ufpr.inf.opla.patterns.designpatterns.DesignPattern;
 import br.ufpr.inf.opla.patterns.designpatterns.Mediator;
 import br.ufpr.inf.opla.patterns.models.ps.PS;
+
 import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author giovaniguizzo
  */
 public class PSMediator implements PS {
@@ -46,12 +46,12 @@ public class PSMediator implements PS {
         this.participants = participants;
     }
 
-    public void setConcern(Concern concern) {
-        this.concern = concern;
-    }
-
     public Concern getConcern() {
         return concern;
+    }
+
+    public void setConcern(Concern concern) {
+        this.concern = concern;
     }
 
     @Override

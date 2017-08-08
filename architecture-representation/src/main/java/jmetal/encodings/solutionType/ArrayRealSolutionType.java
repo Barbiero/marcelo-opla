@@ -27,42 +27,45 @@ import jmetal.core.Variable;
 import jmetal.encodings.variable.ArrayReal;
 
 /**
-  * Class representing the solution type of solutions composed of an ArrayReal 
-  * variable 
-  */
+ * Class representing the solution type of solutions composed of an ArrayReal
+ * variable
+ */
 public class ArrayRealSolutionType extends SolutionType {
 
-	/**
-	 * Constructor
-	 * @param problem
-	 * @throws ClassNotFoundException 
-	 */
-	public ArrayRealSolutionType(Problem problem) throws ClassNotFoundException {
-		super(problem) ;
-	}
-	
-	/**
-	 * Creates the variables of the solution
-	 * @param decisionVariables
-	 */
-	public Variable[] createVariables() {
-		Variable [] variables = new Variable[1];
-		
-    variables[0] = new ArrayReal(problem_.getNumberOfVariables(), problem_); 
-    return variables ;
-	} // createVariables
-	
-	/**
-	 * Copy the variables
-	 * @param decisionVariables
-	 * @return An array of variables
-	 */
-	public Variable[] copyVariables(Variable[] vars) {
-		Variable[] variables ;
-		
-		variables = new Variable[1];
-	  variables[0] = vars[0].deepCopy();
-		
-		return variables ;
-	} // copyVariables
+    /**
+     * Constructor
+     *
+     * @param problem
+     * @throws ClassNotFoundException
+     */
+    public ArrayRealSolutionType(Problem problem) throws ClassNotFoundException {
+        super(problem);
+    }
+
+    /**
+     * Creates the variables of the solution
+     *
+     * @param decisionVariables
+     */
+    public Variable[] createVariables() {
+        Variable[] variables = new Variable[1];
+
+        variables[0] = new ArrayReal(problem_.getNumberOfVariables(), problem_);
+        return variables;
+    } // createVariables
+
+    /**
+     * Copy the variables
+     *
+     * @param decisionVariables
+     * @return An array of variables
+     */
+    public Variable[] copyVariables(Variable[] vars) {
+        Variable[] variables;
+
+        variables = new Variable[1];
+        variables[0] = vars[0].deepCopy();
+
+        return variables;
+    } // copyVariables
 } // ArrayRealSolutionType

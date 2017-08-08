@@ -13,17 +13,16 @@ import br.ufpr.inf.opla.patterns.models.ps.impl.PSStrategy;
 import br.ufpr.inf.opla.patterns.util.BridgeUtil;
 import br.ufpr.inf.opla.patterns.util.ElementUtil;
 import br.ufpr.inf.opla.patterns.util.StrategyUtil;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 public class Bridge extends DesignPattern {
 
     private static volatile Bridge INSTANCE;
+
+    private Bridge() {
+        super("Bridge", "Structural");
+    }
 
     public static synchronized Bridge getInstance() {
         if (INSTANCE == null) {
@@ -32,16 +31,12 @@ public class Bridge extends DesignPattern {
         return INSTANCE;
     }
 
-    private Bridge() {
-        super("Bridge", "Structural");
-    }
-
     @Override
     public boolean verifyPS(Scope scope) {
         boolean isPS = false;
         if (Strategy.getInstance().verifyPS(scope)) {
             List<PS> psStrategyList = scope.getPSs(Strategy.getInstance());
-            for (Iterator<PS> it = psStrategyList.iterator(); it.hasNext();) {
+            for (Iterator<PS> it = psStrategyList.iterator(); it.hasNext(); ) {
                 PSStrategy psStrategy = (PSStrategy) it.next();
                 Set<Concern> commonConcerns = ElementUtil.getOwnAndMethodsCommonConcernsOfAtLeastTwoElements(psStrategy.getAlgorithmFamily().getParticipants());
                 if (!commonConcerns.isEmpty()) {

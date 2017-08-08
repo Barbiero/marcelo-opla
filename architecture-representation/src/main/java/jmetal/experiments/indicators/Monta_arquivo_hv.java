@@ -1,28 +1,23 @@
 package jmetal.experiments.indicators;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import jmetal.util.JMException;
+
+import java.io.*;
 
 public class Monta_arquivo_hv {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
     public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
         String[] algoritmos = {
-            "nsgaii",
-            "paes",
-            "spea2"
+                "nsgaii",
+                "paes",
+                "spea2"
         };
         String[] softwares = {
-            "OA_AJHotDraw",
-            "OA_AJHsqldb",
-            "OA_HealthWatcher",
-            "OA_TollSystems", 
+                "OA_AJHotDraw",
+                "OA_AJHsqldb",
+                "OA_HealthWatcher",
+                "OA_TollSystems",
 //            "OO_BCEL",
 //            "OO_JBoss",
 //            "OO_JHotDraw",
@@ -30,11 +25,11 @@ public class Monta_arquivo_hv {
         };
 
         String[] contextos = {
-            "_Comb_4obj",
-            "_Inc_4obj"
+                "_Comb_4obj",
+                "_Inc_4obj"
         };
         for (String software : softwares) {
-            
+
             File directory = new File("resultado/hypervolume/" + software);
             if (!directory.exists()) {
                 if (!directory.mkdir()) {
@@ -42,7 +37,7 @@ public class Monta_arquivo_hv {
                 }
             }
             String allalgorithms_allruns = "resultado/hypervolume/" + software + "_allalgorithms_allruns.txt";
-            
+
             for (String algorithm : algoritmos) {
                 for (String contexto : contextos) {
                     String outFile = "resultado/hypervolume/" + software + "/" + software + "_" + algorithm + contexto + "_allruns.txt";
@@ -64,7 +59,7 @@ public class Monta_arquivo_hv {
     public static void mergeAllFiles(String fileDir) throws FileNotFoundException, IOException {
         File dirSrc = new File(fileDir);
         File[] list = dirSrc.listFiles();
-        for (int j = 0; j <  list.length; j++){
+        for (int j = 0; j < list.length; j++) {
             String lines;
             String srcFile = list[j].getPath();
             String outFile = "JavaMerged.txt";
@@ -79,8 +74,9 @@ public class Monta_arquivo_hv {
             inFile.close();
         }
     }
-    
+
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+
     /**
      * Takes a files and merge it together outFile...
      */
@@ -97,5 +93,5 @@ public class Monta_arquivo_hv {
         outPut.close();
         inFile.close();
     }
-    
+
 }

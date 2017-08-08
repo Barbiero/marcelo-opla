@@ -7,16 +7,17 @@ import arquitetura.exceptions.PackageNotFound;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternsAndPLAMutationOperator;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.logging.Level;
 import jmetal.core.Solution;
 import jmetal.operators.mutation.Mutation;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Level;
 
 public abstract class AbstractMutationOperator extends Mutation {
 
