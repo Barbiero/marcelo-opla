@@ -1,2 +1,0 @@
-MSI    MAC     Extensibility       Elegance
-260.0  47.5  1000.0  0.2647788229439586
