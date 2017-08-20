@@ -119,7 +119,7 @@ public class NSGAII extends Algorithm {
         try {
             // Generations 
             while (currentEvaluations < maxEvaluations) {
-                System.out.println("==>" + currentEvaluations);
+                long init = System.currentTimeMillis();
                 // Create the offSpring solutionSet      
                 offspringPopulation = new SolutionSet(populationSize);
                 Solution[] parents = new Solution[2];

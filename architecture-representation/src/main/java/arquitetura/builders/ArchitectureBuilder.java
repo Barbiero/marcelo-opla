@@ -23,6 +23,7 @@ import org.eclipse.uml2.uml.*;
 import org.eclipse.uml2.uml.Package;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -88,9 +89,9 @@ public class ArchitectureBuilder {
      *
      * @param xmiFilePath - arquivo da arquitetura (.uml)
      * @return {@link Architecture}
-     * @throws Exception
      */
-    public Architecture create(String xmiFilePath) throws Exception {
+    public Architecture create(String xmiFilePath) {
+
         try {
             model = modelHelper.getModel(xmiFilePath);
             VariationPointFlyweight.getInstance().addModel(model);
@@ -127,8 +128,8 @@ public class ArchitectureBuilder {
             architecture.setCloner(cloner);
             ArchitectureHolder.setName(architecture.getName());
             return architecture;
-
-        } catch (Exception e) {
+        } catch (ModelNotFoundException | ModelIncompleteException |
+                SMartyProfileNotAppliedToModelExcepetion | VariationPointElementTypeErrorException e) {
             e.printStackTrace();
             return null;
         }
@@ -304,7 +305,7 @@ public class ArchitectureBuilder {
     /**
      * Retornar todos os pacotes
      *
-     * @return {@link Collection<mestrado.arquitetura.representation.Package>}
+     * @return {@link Collection<arquitetura.representation.Package>}
      */
     private List<arquitetura.representation.Package> loadPackages() {
         List<arquitetura.representation.Package> packages = new ArrayList<arquitetura.representation.Package>();

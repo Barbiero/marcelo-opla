@@ -89,8 +89,8 @@ public class Package extends Element {
      * @return {@link Set} imutável
      */
     public Set<Interface> getImplementedInterfaces() {
-        Set<Interface> implementedInterfecesForClassIntoPackage = new HashSet<Interface>();
-        Set<Interface> implementedInterfacesForPackage = new HashSet<Interface>(this.implementedInterfaces);
+        Set<Interface> implementedInterfecesForClassIntoPackage = new HashSet<>();
+        Set<Interface> implementedInterfacesForPackage = new HashSet<>(this.implementedInterfaces);
 
         for (Class klass : this.getAllClasses())
             implementedInterfecesForClassIntoPackage.addAll(klass.getImplementedInterfaces());
@@ -161,7 +161,7 @@ public class Package extends Element {
 
     @Override
     public Set<Concern> getAllConcerns() {
-        Set<Concern> concerns = new HashSet<Concern>();
+        Set<Concern> concerns = new HashSet<>();
 
         for (Element klass : this.classes)
             concerns.addAll(klass.getAllConcerns());

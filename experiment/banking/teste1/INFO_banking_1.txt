@@ -1,0 +1,38 @@
+Number of solutions: 1
+--------  NEW SOLUTION ------------------
+
+Solution: 0
+
+Concern: german
+Concern: spanish
+Concern: io
+Concern: greeting
+Concern: external_output_device
+Concern: max_pin_attempts
+Concern: output
+Concern: user_interaction
+Concern: external_io_device
+Concern: statement
+Concern: english
+Concern: deposit
+Concern: external_user
+Concern: maintenance
+Concern: french
+Concern: state_dependent_control
+
+Number of Packages: 5
+
+Number of variabilities: 3
+
+Number of interfaces: 5
+
+Number of classes: 24
+
+Number of DependencyInterElementRelationships: 3
+
+Number of AbstractionInterElementRelationships: 0
+
+Number of GeneralizationsRelationships: 6
+
+Number of AssociationsRelationships: 12
+Number of AssociationClasses: 1

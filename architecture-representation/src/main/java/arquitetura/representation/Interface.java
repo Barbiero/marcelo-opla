@@ -9,6 +9,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author edipofederle<edipofederle@gmail.com>
@@ -115,19 +116,15 @@ public class Interface extends Element {
 
 
     public Set<Element> getImplementors() {
-        Set<Element> implementors = new HashSet<Element>();
+        Set<Element> implementors;
 
         Set<Relationship> relations = getRelationshipHolder().getRelationships();
 
-        for (Relationship relationship : relations) {
-
-            if (relationship instanceof RealizationRelationship) {
-                RealizationRelationship realization = (RealizationRelationship) relationship;
-                if (realization.getSupplier().equals(this))
-                    implementors.add(realization.getClient());
-            }
-
-        }
+        implementors = relations.stream()
+                .filter(RealizationRelationship.class::isInstance)
+                .map(RealizationRelationship.class::cast)
+                .filter(realization -> realization.getSupplier().equals(this))
+                .map(RealizationRelationship::getClient).collect(Collectors.toSet());
 
         return Collections.unmodifiableSet(implementors);
     }
@@ -164,10 +161,9 @@ public class Interface extends Element {
 
     @Override
     public Set<Concern> getAllConcerns() {
-        Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
+        Set<Concern> concerns = new HashSet<>(getOwnConcerns());
         for (Method operation : getOperations())
             concerns.addAll(operation.getAllConcerns());
-        concerns.addAll(this.getOwnConcerns());
 
         return Collections.unmodifiableSet(concerns);
     }

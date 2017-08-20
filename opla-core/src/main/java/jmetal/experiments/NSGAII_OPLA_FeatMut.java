@@ -16,6 +16,7 @@ import jmetal.operators.selection.SelectionFactory;
 import jmetal.problems.OPLA;
 import jmetal.util.JMException;
 import logs.log_log.Level;
+import logs.log_log.LogLog;
 import metrics.AllMetrics;
 import persistence.*;
 import results.Execution;
@@ -24,7 +25,6 @@ import results.FunResults;
 import results.InfoResult;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -65,6 +65,13 @@ public class NSGAII_OPLA_FeatMut {
     public void execute() throws IOException, JMException, ClassNotFoundException {
 
         intializeDependencies();
+
+        configs.setLogger(new LogLog() {
+            @Override
+            public void putLog(String s) {
+                System.out.println(s);
+            }
+        });
 
         int runsNumber = this.configs.getNumberOfRuns();
         populationSize = this.configs.getPopulationSize();

@@ -25,6 +25,10 @@ public class Concern {
         this.name += "," + newName;
     }
 
+    public boolean namesMatch(Concern otherConcern) {
+        return this.getName().equalsIgnoreCase(otherConcern.getName());
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

@@ -485,6 +485,28 @@ public class Architecture extends Variable {
         return newArchitecture;
     }
 
+    private boolean haveRelationship(Interface supplier, Element client) {
+        for (Relationship r : relationshipHolder.getAllRelationships()) {
+            if (r instanceof RealizationRelationship)
+                if (((RealizationRelationship) r).getClient().equals(client) && ((RealizationRelationship) r).getSupplier().equals(supplier))
+                    return true;
+
+            if (r instanceof DependencyRelationship)
+                if (((DependencyRelationship) r).getClient().equals(client) && ((DependencyRelationship) r).getSupplier().equals(supplier))
+                    return true;
+        }
+        return false;
+    }
+
+    public boolean addImplementedInterface(Interface supplier, Element genericElement) {
+        if (genericElement instanceof Class) {
+            return addImplementedInterface(supplier, (Class) genericElement);
+        } else if (genericElement instanceof Package) {
+            return addImplementedInterface(supplier, (Package) genericElement);
+        }
+
+        return true;
+    }
 
     public boolean addImplementedInterface(Interface supplier, Class client) {
         if (!haveRelationship(supplier, client)) {
@@ -499,18 +521,6 @@ public class Architecture extends Variable {
         return false;
     }
 
-    private boolean haveRelationship(Interface supplier, Element client) {
-        for (Relationship r : relationshipHolder.getAllRelationships()) {
-            if (r instanceof RealizationRelationship)
-                if (((RealizationRelationship) r).getClient().equals(client) && ((RealizationRelationship) r).getSupplier().equals(supplier))
-                    return true;
-
-            if (r instanceof DependencyRelationship)
-                if (((DependencyRelationship) r).getClient().equals(client) && ((DependencyRelationship) r).getSupplier().equals(supplier))
-                    return true;
-        }
-        return false;
-    }
 
     public boolean addImplementedInterface(Interface supplier, Package client) {
         if (!haveRelationship(supplier, client)) {

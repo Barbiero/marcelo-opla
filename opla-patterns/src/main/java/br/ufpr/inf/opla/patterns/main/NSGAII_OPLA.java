@@ -3,7 +3,6 @@ package br.ufpr.inf.opla.patterns.main;
 import arquitetura.io.ReaderConfig;
 import br.ufpr.inf.opla.patterns.factory.MutationOperatorFactory;
 import br.ufpr.inf.opla.patterns.indicadores.Hypervolume;
-import br.ufpr.inf.opla.patterns.repositories.ArchitectureRepository;
 import jmetal.core.Algorithm;
 import jmetal.core.SolutionSet;
 import jmetal.metaheuristics.nsgaII.NSGAII;
@@ -15,20 +14,40 @@ import jmetal.operators.selection.SelectionFactory;
 import jmetal.problems.OPLA;
 import jmetal.util.JMException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class NSGAII_OPLA {
 
-    public static int populationSize_;
-    public static int maxEvaluations_;
-    public static double mutationProbability_;
-    public static double crossoverProbability_;
+    private static int populationSize_;
+    private static int maxEvaluations_;
+    private static double mutationProbability_;
+    private static double crossoverProbability_;
+
+    public static void main(String... args) throws ClassNotFoundException, IOException, JMException {
+        //versao com args próprios
+
+        String[] myArgs = {
+                /*population size*/"30",
+                /*max evaluations*/"3000",
+                /*Mutation probability*/"0.9",
+                /*PLA path*/"/home/barbiero/TCC/PLAs/banking/banking.uml",
+                /*Context*/"teste1",
+                /*Mutation operator*/"PLAMutation",
+                /*print variables?*/"true"
+        };
+
+        System.err.println(System.getProperty("user.dir"));
+
+
+        runNSGAII_OPLA(myArgs);
+    }
 
     //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
+    private static void runNSGAII_OPLA(String[] args) throws IOException, JMException, ClassNotFoundException {
 
 //        args = new String[]{"1", "1", "0.0", ArchitectureRepository.BET, "Teste", "PLAMutation", "false"};
         if (args.length < 7) {
@@ -43,7 +62,7 @@ public class NSGAII_OPLA {
             System.exit(0);
         }
 
-        int runsNumber = 30; //30;
+        int runsNumber = 2; //30;
         if (args[0] == null || args[0].trim().equals("")) {
             System.out.println("Missing population size argument.");
             System.exit(1);
@@ -106,25 +125,27 @@ public class NSGAII_OPLA {
 
         String plaName = getPlaName(pla);
 
-        File directory = ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + "/" + context + "/");
-        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + "/" + context + "/manipulation");
-        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + "/" + context + "/output");
+        Path rootDir = Paths.get("experiment", plaName, context);
+        Path manipulationDir = rootDir.resolve("manipulation");
+        Path outputDir = rootDir.resolve("output");
 
-        ReaderConfig.setDirTarget("experiment/" + plaName + "/" + context + "/manipulation");
-        ReaderConfig.setDirExportTarget("experiment/" + plaName + "/" + context + "/output");
+        Files.createDirectories(manipulationDir);
+        Files.createDirectories(outputDir);
 
-        String plaDirectory = getPlaDirectory(pla);
+        ReaderConfig.setDirTarget(manipulationDir.toString() + "/");
+        ReaderConfig.setDirExportTarget(outputDir.toString() + "/");
+
+        String plaDirectory = Paths.get(pla).getParent().toString() + "/";
+
         ReaderConfig.setPathToTemplateModelsDirectory(plaDirectory);
         ReaderConfig.setPathToProfileSMarty(plaDirectory + "smarty.profile.uml");
         ReaderConfig.setPathToProfileConcerns(plaDirectory + "concerns.profile.uml");
         ReaderConfig.setPathProfileRelationship(plaDirectory + "relationships.profile.uml");
         ReaderConfig.setPathToProfilePatterns(plaDirectory + "patterns.profile.uml");
 
-        String xmiFilePath = pla;
-
         OPLA problem = null;
         try {
-            problem = new OPLA(xmiFilePath);
+            problem = new OPLA(pla);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -172,10 +193,11 @@ public class NSGAII_OPLA {
 
         long time[] = new long[runsNumber];
 
-        Hypervolume.clearFile(directory + "/HYPERVOLUME.txt");
+        Hypervolume.clearFile(rootDir.toString() + "/HYPERVOLUME.txt");
+
+        long initTotal = System.currentTimeMillis();
 
         for (int runs = 0; runs < runsNumber; runs++) {
-
             // Execute the Algorithm
             long initTime = System.currentTimeMillis();
             SolutionSet resultFront = algorithm.execute();
@@ -186,42 +208,46 @@ public class NSGAII_OPLA {
             resultFront = problem.removeDominadas(resultFront);
             resultFront = problem.removeRepetidas(resultFront);
 
-            resultFront.printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
+            resultFront.printObjectivesToFile(rootDir.toString() + "/FUN_" + plaName + "_" + runs + ".txt");
             //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
-            resultFront.printInformationToFile(directory + "/INFO_" + plaName + "_" + runs + ".txt");
+            resultFront.printInformationToFile(rootDir.toString() + "/INFO_" + plaName + "_" + runs + ".txt");
             // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
             if (shouldPrintVariables) {
                 resultFront.saveVariablesToFile("VAR_" + runs + "_");
             }
 
-            Hypervolume.printFormatedHypervolumeFile(resultFront, directory + "/HYPERVOLUME.txt", true);
+            Hypervolume.printFormatedHypervolumeFile(resultFront, rootDir.toString() + "/HYPERVOLUME.txt", true);
 
             //armazena as solucoes de todas runs
             todasRuns = todasRuns.union(resultFront);
 
             //Thelma - Dez2013
             allSolutions = allSolutions.union(resultFront);
-            resultFront.printMetricsToFile(directory + "/Metrics_" + plaName + "_" + runs + ".txt");
+            resultFront.printMetricsToFile(rootDir.toString() + "/Metrics_" + plaName + "_" + runs + ".txt");
 
         }
+        long endTotal = System.currentTimeMillis();
 
-        todasRuns.printTimeToFile(directory + "/TIME_" + plaName, runsNumber, time, pla);
+        todasRuns.printTimeToFile(rootDir.toString() + "/TIME_" + plaName, runsNumber, time, pla);
 
         todasRuns = problem.removeDominadas(todasRuns);
         todasRuns = problem.removeRepetidas(todasRuns);
 
+        System.out.println("Numero de soluções: " + allSolutions.size() + " distintas: " + todasRuns.size());
+        System.out.println("Tempo total: " + (endTotal - initTotal) + "ms");
+
         System.out.println("------    All Runs - Non-dominated solutions --------");
-        todasRuns.printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");
+        todasRuns.printObjectivesToFile(rootDir.toString() + "/FUN_All_" + plaName + ".txt");
         //todasRuns.printVariablesToFile(directory + "/VAR_All");
-        todasRuns.printInformationToFile(directory + "/INFO_All_" + plaName + ".txt");
+        todasRuns.printInformationToFile(rootDir.toString() + "/INFO_All_" + plaName + ".txt");
         //todasRuns.saveVariablesToFile(directory + "/VAR_All_");
         if (shouldPrintVariables) {
             todasRuns.saveVariablesToFile("VAR_All_");
         }
 
         //Thelma - Dez2013
-        todasRuns.printMetricsToFile(directory + "/Metrics_All_" + plaName + ".txt");
-        todasRuns.printAllMetricsToFile(directory + "/FUN_Metrics_All_" + plaName + ".txt");
+        todasRuns.printMetricsToFile(rootDir.toString() + "/Metrics_All_" + plaName + ".txt");
+        todasRuns.printAllMetricsToFile(rootDir.toString() + "/FUN_Metrics_All_" + plaName + ".txt");
 
     }
 

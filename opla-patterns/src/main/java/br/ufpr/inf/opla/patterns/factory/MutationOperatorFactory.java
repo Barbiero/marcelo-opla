@@ -5,11 +5,11 @@
  */
 package br.ufpr.inf.opla.patterns.factory;
 
-import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternMutationOperator;
-import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternsAndPLAMutationOperator;
-import br.ufpr.inf.opla.patterns.operator.impl.PLAMutation;
-import br.ufpr.inf.opla.patterns.operator.impl.PLAMutationThenDesignPatternsMutationOperator;
+import br.ufpr.inf.opla.patterns.operator.impl.*;
 import jmetal.operators.mutation.Mutation;
+import jmetal5.operator.MutationOperator;
+import jmetal5.operator.impl.mutation.NullMutation;
+import jmetal5.solution.impl.ArchitectureSolution;
 
 import java.util.HashMap;
 
@@ -30,6 +30,19 @@ public class MutationOperatorFactory {
                 return new PLAMutationThenDesignPatternsMutationOperator(parameters, null, null);
             default:
                 return null;
+        }
+    }
+
+    public static MutationOperator<ArchitectureSolution> create(String operator, double probability) {
+        if (probability == 0.0) {
+            return new NullMutation<>();
+        }
+
+        switch (operator) {
+            case "PLAMutation":
+                return new PLAMutation_JMetal5(probability);
+            default:
+                return new NullMutation<>();
         }
     }
 

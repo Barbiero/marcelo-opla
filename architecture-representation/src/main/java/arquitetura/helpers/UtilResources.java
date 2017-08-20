@@ -3,6 +3,7 @@ package arquitetura.helpers;
 import arquitetura.representation.Element;
 import arquitetura.representation.relationship.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,8 +46,7 @@ public class UtilResources {
     public static String extractPackageName(String namespace) {
         if (namespace == null) return "";
         if (namespace.equalsIgnoreCase("model")) return namespace;
-        String name = namespace.substring(namespace.lastIndexOf("::") + 2, namespace.length());
-        return name != null ? name : "";
+        return namespace.substring(namespace.lastIndexOf("::") + 2, namespace.length());
     }
 
     public static String getRandonUUID() {
@@ -54,8 +54,7 @@ public class UtilResources {
     }
 
     public static String createNamespace(String architectureName, String name) {
-        String nsp = architectureName + "::" + name;
-        return nsp != null ? nsp : "";
+        return architectureName + "::" + name;
     }
 
     public static void clearConsole() {
@@ -65,7 +64,7 @@ public class UtilResources {
                 Runtime.getRuntime().exec("cls");
             else
                 Runtime.getRuntime().exec("clear");
-        } catch (Exception exception) {
+        } catch (IOException ignored) {
         }
     }
 

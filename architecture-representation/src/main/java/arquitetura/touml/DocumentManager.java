@@ -5,7 +5,6 @@ import arquitetura.helpers.XmiHelper;
 import arquitetura.io.CopyFile;
 import arquitetura.io.ReaderConfig;
 import arquitetura.io.SaveAndMove;
-import com.google.common.io.Files;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -21,6 +20,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * @author edipofederle<edipofederle@gmail.com>
@@ -53,9 +56,11 @@ public class DocumentManager extends XmiHelper {
             if (ReaderConfig.hasSmartyProfile()) {
                 String pathSmarty = ReaderConfig.getPathToProfileSMarty();
                 final File sourceFileSmarty = new File(pathSmarty);
-                final File destFileSmarty = new File(ReaderConfig.getDirExportTarget()
-                        + "/resources/smarty.profile.uml");
-                Files.copy(sourceFileSmarty, destFileSmarty);
+                /*final File destFileSmarty = new File(ReaderConfig.getDirExportTarget()
+                        + "/resources/smarty.profile.uml");*/
+                Path destFileSmarty = Paths.get(ReaderConfig.getDirExportTarget(), "resources", "smarty.profile.uml");
+                Files.createDirectories(destFileSmarty.getParent());
+                Files.copy(sourceFileSmarty.toPath(), destFileSmarty, StandardCopyOption.REPLACE_EXISTING);
             } else {
                 // Caso perfil não esteja setado remove do arquivo de tempalte
                 XmiHelper.removeNode(docUml, "profileApplication", "_2RlssY9OEeO5xq3Ur4qgFw"); // id
@@ -71,7 +76,8 @@ public class DocumentManager extends XmiHelper {
                 final File sourceFileConcern = new File(pathConcern);
                 final File destFileConcern = new File(ReaderConfig.getDirExportTarget()
                         + "/resources/concerns.profile.uml");
-                Files.copy(sourceFileConcern, destFileConcern);
+                Files.copy(sourceFileConcern.toPath(), destFileConcern.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
             } else {
                 // Caso perfil não esteja setado remove do arquivo de tempalte
                 XmiHelper.removeNode(docUml, "profileApplication", "_2Q2s4I9OEeO5xq3Ur4qgFw"); // id
@@ -90,7 +96,8 @@ public class DocumentManager extends XmiHelper {
                 // no arquivo
                 // de
                 // template
-                Files.copy(sourceFileRelationships, destFileRelationship);
+                Files.copy(sourceFileRelationships.toPath(), destFileRelationship.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
             } else {
                 // Caso perfil não esteja setado remove do arquivo de tempalte
                 XmiHelper.removeNode(docUml, "profileApplication", "_2RXDMI9OEeO5xq3Ur4qgFw");
@@ -101,7 +108,8 @@ public class DocumentManager extends XmiHelper {
                         + "/resources/patterns.profile.uml"); // id setado no
                 // arquivo de
                 // template
-                Files.copy(new File(ReaderConfig.getPathToProfilePatterns()), destFileRelationship);
+                Files.copy(Paths.get(ReaderConfig.getPathToProfilePatterns()), destFileRelationship.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
             } else {
                 // Caso perfil não esteja setado remove do arquivo de tempalte
                 XmiHelper.removeNode(docUml, "profileApplication", "_cyBBIJJmEeOENZsdUoZvrw");
@@ -151,7 +159,6 @@ public class DocumentManager extends XmiHelper {
      * Esse diretório deve ser setado no arquivo de configuração
      * <b>application.yml</b> na propriedade "directoryToSaveModels".
      *
-     * @param pathToFiles
      * @param modelName
      * @throws ModelIncompleteException
      * @throws ModelNotFoundException
@@ -177,15 +184,14 @@ public class DocumentManager extends XmiHelper {
         URL d = null;
         try {
             URL baseUrl = new URL("file:" + ReaderConfig.getPathToTemplateModelsDirectory());
-            if (baseUrl != null) {
-                // Arquivos vazios usados para geração da nova arquitetura
-                n = new URL(baseUrl, modelName + ".notation");
-                u = new URL(baseUrl, modelName + ".uml");
-                d = new URL(baseUrl, modelName + ".di");
-            }
+            // Arquivos vazios usados para geração da nova arquitetura
+            n = new URL(baseUrl, modelName + ".notation");
+            u = new URL(baseUrl, modelName + ".uml");
+            d = new URL(baseUrl, modelName + ".di");
         } catch (MalformedURLException e) {
             LOGGER.error("makeACopy(String modelName) - Could not find template files directory: "
                     + ReaderConfig.getPathToTemplateModelsDirectory());
+            return;
         }
 
         CopyFile.copyFile(new File(n.getPath()), new File(notationCopy));

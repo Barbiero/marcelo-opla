@@ -34,7 +34,7 @@ public class ArchitectureSolutionType extends SolutionType {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 
         for (int var = 0; var < problem_.getNumberOfVariables(); var++)
-            if (problem_.getName() == "OPLA") {
+            if (problem_.getName().equals("OPLA")) {
                 variables[var] = ((OPLA) problem_).architecture_.deepCopy();
             }
 

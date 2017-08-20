@@ -51,7 +51,24 @@
 			<scope>test</scope>
 			<type>jar</type>
 		</dependency>
-		<dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.knowm.xchart</groupId>
+            <artifactId>xchart</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.3</version>
+        </dependency>
+
+        <dependency>
 			<groupId>br.ufpr.dinf.gres</groupId>
 			<artifactId>architecture-representation</artifactId>
 			<version>0.0.1</version>
@@ -91,9 +108,6 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
 							<filters>
 								<filter>
 									<artifact>*:*</artifact>
@@ -108,6 +122,14 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
 </project>
