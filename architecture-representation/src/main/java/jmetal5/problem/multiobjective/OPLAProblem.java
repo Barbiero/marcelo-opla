@@ -55,6 +55,7 @@ public class OPLAProblem extends AbstractGenericProblem<ArchitectureSolution> {
             Architecture arch = solution.getArchitecture();
 
             double result;
+
             switch (metric) {
                 case "elegance":
                     result = evaluation.evaluateElegance(arch);
